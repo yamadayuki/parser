@@ -1,281 +1,150 @@
-
 <!-- This is a generated file -->
-<!DOCTYPE html>
-<meta charset="utf-8">
+<!DOCTYPE html> <meta charset="utf-8" />
 <style>
   body {
-    background-color: hsl(30, 20%, 95%)
+    background-color: hsl(30, 20%, 95%);
   }
 </style>
-
-
-<link rel='stylesheet' href='https://unpkg.com/chevrotain@4.8.1/diagrams/diagrams.css'>
-
-<script src='https://unpkg.com/chevrotain@4.8.1/diagrams/vendor/railroad-diagrams.js'></script>
-<script src='https://unpkg.com/chevrotain@4.8.1/diagrams/src/diagrams_builder.js'></script>
-<script src='https://unpkg.com/chevrotain@4.8.1/diagrams/src/diagrams_behavior.js'></script>
-<script src='https://unpkg.com/chevrotain@4.8.1/diagrams/src/main.js'></script>
-
-<div id="diagrams" align="center"></div>    
-
+<link rel="stylesheet" href="https://unpkg.com/chevrotain@4.8.1/diagrams/diagrams.css" />
+<script src="https://unpkg.com/chevrotain@4.8.1/diagrams/vendor/railroad-diagrams.js"></script>
+<script src="https://unpkg.com/chevrotain@4.8.1/diagrams/src/diagrams_builder.js"></script>
+<script src="https://unpkg.com/chevrotain@4.8.1/diagrams/src/diagrams_behavior.js"></script>
+<script src="https://unpkg.com/chevrotain@4.8.1/diagrams/src/main.js"></script>
+<div id="diagrams" align="center"></div>
 <script>
-    window.serializedGrammar = [
-  {
-    "type": "Rule",
-    "name": "json",
-    "orgText": "() => {\n            $.OR([\n                {\n                    ALT: () => $.SUBRULE($.object),\n                },\n                {\n                    ALT: () => $.SUBRULE($.array),\n                },\n            ]);\n        }",
-    "definition": [
-      {
-        "type": "Alternation",
-        "idx": 0,
-        "definition": [
-          {
-            "type": "Flat",
-            "definition": [
-              {
-                "type": "NonTerminal",
-                "name": "object",
-                "idx": 0
-              }
-            ]
-          },
-          {
-            "type": "Flat",
-            "definition": [
-              {
-                "type": "NonTerminal",
-                "name": "array",
-                "idx": 0
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "type": "Rule",
-    "name": "object",
-    "orgText": "() => {\n            $.CONSUME(lexer_1.LCurly);\n            $.OPTION(() => {\n                $.SUBRULE($.objectItem);\n                $.MANY(() => {\n                    $.CONSUME(lexer_1.Comma);\n                    $.SUBRULE2($.objectItem);\n                });\n            });\n            $.CONSUME(lexer_1.RCurly);\n        }",
-    "definition": [
-      {
-        "type": "Terminal",
-        "name": "LCurly",
-        "label": "LCurly",
-        "idx": 0,
-        "pattern": "{"
-      },
-      {
-        "type": "Option",
-        "idx": 0,
-        "definition": [
-          {
-            "type": "NonTerminal",
-            "name": "objectItem",
-            "idx": 0
-          },
-          {
-            "type": "Repetition",
-            "idx": 0,
-            "definition": [
-              {
-                "type": "Terminal",
-                "name": "Comma",
-                "label": "Comma",
-                "idx": 0,
-                "pattern": ","
-              },
-              {
-                "type": "NonTerminal",
-                "name": "objectItem",
-                "idx": 2
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "Terminal",
-        "name": "RCurly",
-        "label": "RCurly",
-        "idx": 0,
-        "pattern": "}"
-      }
-    ]
-  },
-  {
-    "type": "Rule",
-    "name": "objectItem",
-    "orgText": "() => {\n            $.CONSUME(lexer_1.StringLiteral);\n            $.CONSUME(lexer_1.Colon);\n            $.SUBRULE($.value);\n        }",
-    "definition": [
-      {
-        "type": "Terminal",
-        "name": "StringLiteral",
-        "label": "StringLiteral",
-        "idx": 0,
-        "pattern": "\"(?:[^\\\\\"]|\\\\(?:[bfnrtv\"\\\\\\/]|u[0-9a-fA-F]{4}))*\""
-      },
-      {
-        "type": "Terminal",
-        "name": "Colon",
-        "label": "Colon",
-        "idx": 0,
-        "pattern": ":"
-      },
-      {
-        "type": "NonTerminal",
-        "name": "value",
-        "idx": 0
-      }
-    ]
-  },
-  {
-    "type": "Rule",
-    "name": "array",
-    "orgText": "() => {\n            $.CONSUME(lexer_1.LSquare);\n            $.OPTION(() => {\n                $.SUBRULE($.value);\n                $.MANY(() => {\n                    $.CONSUME(lexer_1.Comma);\n                    $.SUBRULE2($.value);\n                });\n            });\n            $.CONSUME(lexer_1.RSquare);\n        }",
-    "definition": [
-      {
-        "type": "Terminal",
-        "name": "LSquare",
-        "label": "LSquare",
-        "idx": 0,
-        "pattern": "["
-      },
-      {
-        "type": "Option",
-        "idx": 0,
-        "definition": [
-          {
-            "type": "NonTerminal",
-            "name": "value",
-            "idx": 0
-          },
-          {
-            "type": "Repetition",
-            "idx": 0,
-            "definition": [
-              {
-                "type": "Terminal",
-                "name": "Comma",
-                "label": "Comma",
-                "idx": 0,
-                "pattern": ","
-              },
-              {
-                "type": "NonTerminal",
-                "name": "value",
-                "idx": 2
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "Terminal",
-        "name": "RSquare",
-        "label": "RSquare",
-        "idx": 0,
-        "pattern": "]"
-      }
-    ]
-  },
-  {
-    "type": "Rule",
-    "name": "value",
-    "orgText": "() => {\n            $.OR([\n                { ALT: () => $.CONSUME(lexer_1.StringLiteral) },\n                { ALT: () => $.CONSUME(lexer_1.NumberLiteral) },\n                { ALT: () => $.SUBRULE($.object) },\n                { ALT: () => $.SUBRULE($.array) },\n                { ALT: () => $.CONSUME(lexer_1.True) },\n                { ALT: () => $.CONSUME(lexer_1.False) },\n                { ALT: () => $.CONSUME(lexer_1.Null) },\n            ]);\n        }",
-    "definition": [
-      {
-        "type": "Alternation",
-        "idx": 0,
-        "definition": [
-          {
-            "type": "Flat",
-            "definition": [
-              {
-                "type": "Terminal",
-                "name": "StringLiteral",
-                "label": "StringLiteral",
-                "idx": 0,
-                "pattern": "\"(?:[^\\\\\"]|\\\\(?:[bfnrtv\"\\\\\\/]|u[0-9a-fA-F]{4}))*\""
-              }
-            ]
-          },
-          {
-            "type": "Flat",
-            "definition": [
-              {
-                "type": "Terminal",
-                "name": "NumberLiteral",
-                "label": "NumberLiteral",
-                "idx": 0,
-                "pattern": "-?(0|[1-9]\\d*)(\\.\\d+)?([eE][+-]?\\d+)?"
-              }
-            ]
-          },
-          {
-            "type": "Flat",
-            "definition": [
-              {
-                "type": "NonTerminal",
-                "name": "object",
-                "idx": 0
-              }
-            ]
-          },
-          {
-            "type": "Flat",
-            "definition": [
-              {
-                "type": "NonTerminal",
-                "name": "array",
-                "idx": 0
-              }
-            ]
-          },
-          {
-            "type": "Flat",
-            "definition": [
-              {
-                "type": "Terminal",
-                "name": "True",
-                "label": "True",
-                "idx": 0,
-                "pattern": "true"
-              }
-            ]
-          },
-          {
-            "type": "Flat",
-            "definition": [
-              {
-                "type": "Terminal",
-                "name": "False",
-                "label": "False",
-                "idx": 0,
-                "pattern": "false"
-              }
-            ]
-          },
-          {
-            "type": "Flat",
-            "definition": [
-              {
-                "type": "Terminal",
-                "name": "Null",
-                "label": "Null",
-                "idx": 0,
-                "pattern": "null"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-];
+  window.serializedGrammar = [
+    {
+      type: "Rule",
+      name: "json",
+      orgText:
+        "() => {\n            $.OR([\n                {\n                    ALT: () => $.SUBRULE($.object),\n                },\n                {\n                    ALT: () => $.SUBRULE($.array),\n                },\n            ]);\n        }",
+      definition: [
+        {
+          type: "Alternation",
+          idx: 0,
+          definition: [
+            { type: "Flat", definition: [{ type: "NonTerminal", name: "object", idx: 0 }] },
+            { type: "Flat", definition: [{ type: "NonTerminal", name: "array", idx: 0 }] },
+          ],
+        },
+      ],
+    },
+    {
+      type: "Rule",
+      name: "object",
+      orgText:
+        "() => {\n            $.CONSUME(lexer_1.LCurly);\n            $.OPTION(() => {\n                $.SUBRULE($.objectItem);\n                $.MANY(() => {\n                    $.CONSUME(lexer_1.Comma);\n                    $.SUBRULE2($.objectItem);\n                });\n            });\n            $.CONSUME(lexer_1.RCurly);\n        }",
+      definition: [
+        { type: "Terminal", name: "LCurly", label: "LCurly", idx: 0, pattern: "{" },
+        {
+          type: "Option",
+          idx: 0,
+          definition: [
+            { type: "NonTerminal", name: "objectItem", idx: 0 },
+            {
+              type: "Repetition",
+              idx: 0,
+              definition: [
+                { type: "Terminal", name: "Comma", label: "Comma", idx: 0, pattern: "," },
+                { type: "NonTerminal", name: "objectItem", idx: 2 },
+              ],
+            },
+          ],
+        },
+        { type: "Terminal", name: "RCurly", label: "RCurly", idx: 0, pattern: "}" },
+      ],
+    },
+    {
+      type: "Rule",
+      name: "objectItem",
+      orgText:
+        "() => {\n            $.CONSUME(lexer_1.StringLiteral);\n            $.CONSUME(lexer_1.Colon);\n            $.SUBRULE($.value);\n        }",
+      definition: [
+        {
+          type: "Terminal",
+          name: "StringLiteral",
+          label: "StringLiteral",
+          idx: 0,
+          pattern: '"(?:[^\\\\"]|\\\\(?:[bfnrtv"\\\\\\/]|u[0-9a-fA-F]{4}))*"',
+        },
+        { type: "Terminal", name: "Colon", label: "Colon", idx: 0, pattern: ":" },
+        { type: "NonTerminal", name: "value", idx: 0 },
+      ],
+    },
+    {
+      type: "Rule",
+      name: "array",
+      orgText:
+        "() => {\n            $.CONSUME(lexer_1.LSquare);\n            $.OPTION(() => {\n                $.SUBRULE($.value);\n                $.MANY(() => {\n                    $.CONSUME(lexer_1.Comma);\n                    $.SUBRULE2($.value);\n                });\n            });\n            $.CONSUME(lexer_1.RSquare);\n        }",
+      definition: [
+        { type: "Terminal", name: "LSquare", label: "LSquare", idx: 0, pattern: "[" },
+        {
+          type: "Option",
+          idx: 0,
+          definition: [
+            { type: "NonTerminal", name: "value", idx: 0 },
+            {
+              type: "Repetition",
+              idx: 0,
+              definition: [
+                { type: "Terminal", name: "Comma", label: "Comma", idx: 0, pattern: "," },
+                { type: "NonTerminal", name: "value", idx: 2 },
+              ],
+            },
+          ],
+        },
+        { type: "Terminal", name: "RSquare", label: "RSquare", idx: 0, pattern: "]" },
+      ],
+    },
+    {
+      type: "Rule",
+      name: "value",
+      orgText:
+        "() => {\n            $.OR([\n                { ALT: () => $.CONSUME(lexer_1.StringLiteral) },\n                { ALT: () => $.CONSUME(lexer_1.NumberLiteral) },\n                { ALT: () => $.SUBRULE($.object) },\n                { ALT: () => $.SUBRULE($.array) },\n                { ALT: () => $.CONSUME(lexer_1.True) },\n                { ALT: () => $.CONSUME(lexer_1.False) },\n                { ALT: () => $.CONSUME(lexer_1.Null) },\n            ]);\n        }",
+      definition: [
+        {
+          type: "Alternation",
+          idx: 0,
+          definition: [
+            {
+              type: "Flat",
+              definition: [
+                {
+                  type: "Terminal",
+                  name: "StringLiteral",
+                  label: "StringLiteral",
+                  idx: 0,
+                  pattern: '"(?:[^\\\\"]|\\\\(?:[bfnrtv"\\\\\\/]|u[0-9a-fA-F]{4}))*"',
+                },
+              ],
+            },
+            {
+              type: "Flat",
+              definition: [
+                {
+                  type: "Terminal",
+                  name: "NumberLiteral",
+                  label: "NumberLiteral",
+                  idx: 0,
+                  pattern: "-?(0|[1-9]\\d*)(\\.\\d+)?([eE][+-]?\\d+)?",
+                },
+              ],
+            },
+            { type: "Flat", definition: [{ type: "NonTerminal", name: "object", idx: 0 }] },
+            { type: "Flat", definition: [{ type: "NonTerminal", name: "array", idx: 0 }] },
+            { type: "Flat", definition: [{ type: "Terminal", name: "True", label: "True", idx: 0, pattern: "true" }] },
+            {
+              type: "Flat",
+              definition: [{ type: "Terminal", name: "False", label: "False", idx: 0, pattern: "false" }],
+            },
+            { type: "Flat", definition: [{ type: "Terminal", name: "Null", label: "Null", idx: 0, pattern: "null" }] },
+          ],
+        },
+      ],
+    },
+  ];
 </script>
-
 <script>
-    var diagramsDiv = document.getElementById("diagrams");
-    main.drawDiagramsFromSerializedGrammar(serializedGrammar, diagramsDiv);
+  var diagramsDiv = document.getElementById("diagrams");
+  main.drawDiagramsFromSerializedGrammar(serializedGrammar, diagramsDiv);
 </script>
