@@ -1,5 +1,10 @@
-describe("sample", () => {
-  test("1 + 1", () => {
-    expect(1 + 1).toBe(2);
+import { parse } from "..";
+
+describe("parse", () => {
+  test("returns the result of parsing json string", () => {
+    const result = parse('{ "foo": 1 }');
+    expect(result.lexerErrors).toEqual([]);
+    expect(result.parserErrors).toEqual([]);
+    expect(result.json).toMatchSnapshot();
   });
 });

@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parse returns the result of parsing json string 1`] = `
+Object {
+  "children": Object {
+    "object": Array [
+      Object {
+        "children": Object {
+          "LCurly": Array [
+            Object {
+              "endColumn": 1,
+              "endLine": 1,
+              "endOffset": 0,
+              "image": "{",
+              "startColumn": 1,
+              "startLine": 1,
+              "startOffset": 0,
+              "tokenType": Object {
+                "CATEGORIES": Array [],
+                "PATTERN": "{",
+                "categoryMatches": Array [],
+                "categoryMatchesMap": Object {},
+                "isParent": false,
+                "tokenName": "LCurly",
+                "tokenTypeIdx": 5,
+              },
+              "tokenTypeIdx": 5,
+            },
+          ],
+          "RCurly": Array [
+            Object {
+              "endColumn": 12,
+              "endLine": 1,
+              "endOffset": 11,
+              "image": "}",
+              "startColumn": 12,
+              "startLine": 1,
+              "startOffset": 11,
+              "tokenType": Object {
+                "CATEGORIES": Array [],
+                "PATTERN": "}",
+                "categoryMatches": Array [],
+                "categoryMatchesMap": Object {},
+                "isParent": false,
+                "tokenName": "RCurly",
+                "tokenTypeIdx": 6,
+              },
+              "tokenTypeIdx": 6,
+            },
+          ],
+          "objectItem": Array [
+            Object {
+              "children": Object {
+                "Colon": Array [
+                  Object {
+                    "endColumn": 8,
+                    "endLine": 1,
+                    "endOffset": 7,
+                    "image": ":",
+                    "startColumn": 8,
+                    "startLine": 1,
+                    "startOffset": 7,
+                    "tokenType": Object {
+                      "CATEGORIES": Array [],
+                      "PATTERN": ":",
+                      "categoryMatches": Array [],
+                      "categoryMatchesMap": Object {},
+                      "isParent": false,
+                      "tokenName": "Colon",
+                      "tokenTypeIdx": 10,
+                    },
+                    "tokenTypeIdx": 10,
+                  },
+                ],
+                "StringLiteral": Array [
+                  Object {
+                    "endColumn": 7,
+                    "endLine": 1,
+                    "endOffset": 6,
+                    "image": "\\"foo\\"",
+                    "startColumn": 3,
+                    "startLine": 1,
+                    "startOffset": 2,
+                    "tokenType": Object {
+                      "CATEGORIES": Array [],
+                      "PATTERN": /"\\(\\?:\\[\\^\\\\\\\\"\\]\\|\\\\\\\\\\(\\?:\\[bfnrtv"\\\\\\\\\\\\/\\]\\|u\\[0-9a-fA-F\\]\\{4\\}\\)\\)\\*"/,
+                      "categoryMatches": Array [],
+                      "categoryMatchesMap": Object {},
+                      "isParent": false,
+                      "tokenName": "StringLiteral",
+                      "tokenTypeIdx": 11,
+                    },
+                    "tokenTypeIdx": 11,
+                  },
+                ],
+                "value": Array [
+                  Object {
+                    "children": Object {
+                      "NumberLiteral": Array [
+                        Object {
+                          "endColumn": 10,
+                          "endLine": 1,
+                          "endOffset": 9,
+                          "image": "1",
+                          "startColumn": 10,
+                          "startLine": 1,
+                          "startOffset": 9,
+                          "tokenType": Object {
+                            "CATEGORIES": Array [],
+                            "PATTERN": /-\\?\\(0\\|\\[1-9\\]\\\\d\\*\\)\\(\\\\\\.\\\\d\\+\\)\\?\\(\\[eE\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?/,
+                            "categoryMatches": Array [],
+                            "categoryMatchesMap": Object {},
+                            "isParent": false,
+                            "tokenName": "NumberLiteral",
+                            "tokenTypeIdx": 12,
+                          },
+                          "tokenTypeIdx": 12,
+                        },
+                      ],
+                    },
+                    "name": "value",
+                  },
+                ],
+              },
+              "name": "objectItem",
+            },
+          ],
+        },
+        "name": "object",
+      },
+    ],
+  },
+  "name": "json",
+}
+`;
