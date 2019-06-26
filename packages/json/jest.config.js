@@ -1,7 +1,7 @@
+const base = require("../../jest.config");
+const packageJson = require("./package.json");
+
 module.exports = {
-  verbose: true,
-  preset: "ts-jest",
-  moduleFileExtensions: ["js", "json", "ts"],
-  testMatch: ["**/__tests__/**/*.test.ts"],
-  collectCoverageFrom: ["**/*.ts", "!**/*.d.ts"],
+  ...base,
+  displayName: packageJson.name,
 };
