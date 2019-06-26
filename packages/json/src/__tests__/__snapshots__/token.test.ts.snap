@@ -1,0 +1,212 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`token Colon 1`] = `
+Array [
+  Object {
+    "image": ":",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": ":",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "Colon",
+      "tokenTypeIdx": 10,
+    },
+    "tokenTypeIdx": 10,
+  },
+]
+`;
+
+exports[`token Comma 1`] = `
+Array [
+  Object {
+    "image": ",",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": ",",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "Comma",
+      "tokenTypeIdx": 9,
+    },
+    "tokenTypeIdx": 9,
+  },
+]
+`;
+
+exports[`token LCurly 1`] = `
+Array [
+  Object {
+    "image": "{",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "{",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "LCurly",
+      "tokenTypeIdx": 5,
+    },
+    "tokenTypeIdx": 5,
+  },
+]
+`;
+
+exports[`token LSquare 1`] = `
+Array [
+  Object {
+    "image": "[",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "[",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "LSquare",
+      "tokenTypeIdx": 7,
+    },
+    "tokenTypeIdx": 7,
+  },
+]
+`;
+
+exports[`token NumberLiteral 1`] = `
+Array [
+  Object {
+    "image": "123",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": /-\\?\\(0\\|\\[1-9\\]\\\\d\\*\\)\\(\\\\\\.\\\\d\\+\\)\\?\\(\\[eE\\]\\[\\+-\\]\\?\\\\d\\+\\)\\?/,
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "NumberLiteral",
+      "tokenTypeIdx": 12,
+    },
+    "tokenTypeIdx": 12,
+  },
+]
+`;
+
+exports[`token RCurly 1`] = `
+Array [
+  Object {
+    "image": "}",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "}",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "RCurly",
+      "tokenTypeIdx": 6,
+    },
+    "tokenTypeIdx": 6,
+  },
+]
+`;
+
+exports[`token RSquare 1`] = `
+Array [
+  Object {
+    "image": "]",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "]",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "RSquare",
+      "tokenTypeIdx": 8,
+    },
+    "tokenTypeIdx": 8,
+  },
+]
+`;
+
+exports[`token StringLiteral 1`] = `
+Array [
+  Object {
+    "image": "\\"foo\\"",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": /"\\(\\?:\\[\\^\\\\\\\\"\\]\\|\\\\\\\\\\(\\?:\\[bfnrtv"\\\\\\\\\\\\/\\]\\|u\\[0-9a-fA-F\\]\\{4\\}\\)\\)\\*"/,
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "StringLiteral",
+      "tokenTypeIdx": 11,
+    },
+    "tokenTypeIdx": 11,
+  },
+]
+`;
+
+exports[`token WhiteSpace 1`] = `Array []`;
+
+exports[`token false 1`] = `
+Array [
+  Object {
+    "image": "false",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "false",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "False",
+      "tokenTypeIdx": 3,
+    },
+    "tokenTypeIdx": 3,
+  },
+]
+`;
+
+exports[`token null 1`] = `
+Array [
+  Object {
+    "image": "null",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "null",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "Null",
+      "tokenTypeIdx": 4,
+    },
+    "tokenTypeIdx": 4,
+  },
+]
+`;
+
+exports[`token true 1`] = `
+Array [
+  Object {
+    "image": "true",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "true",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "True",
+      "tokenTypeIdx": 2,
+    },
+    "tokenTypeIdx": 2,
+  },
+]
+`;
