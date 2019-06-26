@@ -4,14 +4,15 @@
   "main": "lib/index",
   "types": "lib/index",
   "scripts": {
-    "prebuild": "npm run clean",
     "build": "tsc -p .",
     "build:watch": "tsc -p . -w",
     "clean": "rm -rf lib",
     "test": "jest -c ./jest.config.js",
     "test:watch": "jest -c ./jest.config.js --watch",
     "test:update": "jest -c ./jest.config.js -u",
-    "coverage": "jest -c ./jest.config.js --collectCoverage"
+    "coverage": "jest -c ./jest.config.js --collectCoverage",
+    "predocs": "npm run build",
+    "docs": "node ./docs/generate.js"
   },
   "keywords": [],
   "author": "Yuki Yamada <yamadayuuki0818@gmail.com>",
