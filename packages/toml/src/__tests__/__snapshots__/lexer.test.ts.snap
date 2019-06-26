@@ -1,0 +1,500 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`token Comma 1`] = `
+Array [
+  Object {
+    "image": ",",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": ",",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "Comma",
+      "tokenTypeIdx": 2,
+    },
+    "tokenTypeIdx": 2,
+  },
+]
+`;
+
+exports[`token CommentStart 1`] = `
+Array [
+  Object {
+    "image": "#",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "#",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "CommentStart",
+      "tokenTypeIdx": 7,
+    },
+    "tokenTypeIdx": 7,
+  },
+]
+`;
+
+exports[`token Dq 1`] = `
+Array [
+  Object {
+    "image": "\\"",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "\\"",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "Dq",
+      "tokenTypeIdx": 8,
+    },
+    "tokenTypeIdx": 8,
+  },
+]
+`;
+
+exports[`token InlineTableEnd 1`] = `
+Array [
+  Object {
+    "image": "}",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "}",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "InlineTableEnd",
+      "tokenTypeIdx": 11,
+    },
+    "tokenTypeIdx": 11,
+  },
+]
+`;
+
+exports[`token InlineTableStart 1`] = `
+Array [
+  Object {
+    "image": "{",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "{",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "InlineTableStart",
+      "tokenTypeIdx": 10,
+    },
+    "tokenTypeIdx": 10,
+  },
+]
+`;
+
+exports[`token KeyValueSeparator 1`] = `
+Array [
+  Object {
+    "image": "=",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "=",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "KeyValueSeparator",
+      "tokenTypeIdx": 4,
+    },
+    "tokenTypeIdx": 4,
+  },
+]
+`;
+
+exports[`token LSquare 1`] = `
+Array [
+  Object {
+    "image": "[",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "[",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "LSquare",
+      "tokenTypeIdx": 5,
+    },
+    "tokenTypeIdx": 5,
+  },
+]
+`;
+
+exports[`token RSquare 1`] = `
+Array [
+  Object {
+    "image": "]",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "]",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "RSquare",
+      "tokenTypeIdx": 6,
+    },
+    "tokenTypeIdx": 6,
+  },
+]
+`;
+
+exports[`token Sq 1`] = `
+Array [
+  Object {
+    "image": "'",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "'",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "Sq",
+      "tokenTypeIdx": 9,
+    },
+    "tokenTypeIdx": 9,
+  },
+]
+`;
+
+exports[`token TOMLLexer 1`] = `
+Array [
+  Object {
+    "endColumn": 2,
+    "endLine": 2,
+    "endOffset": 7,
+    "image": "=",
+    "startColumn": 2,
+    "startLine": 2,
+    "startOffset": 7,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "=",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "KeyValueSeparator",
+      "tokenTypeIdx": 4,
+    },
+    "tokenTypeIdx": 4,
+  },
+  Object {
+    "endColumn": 1,
+    "endLine": 3,
+    "endOffset": 15,
+    "image": ".",
+    "startColumn": 1,
+    "startLine": 3,
+    "startOffset": 15,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": ".",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "TableSeparator",
+      "tokenTypeIdx": 3,
+    },
+    "tokenTypeIdx": 3,
+  },
+  Object {
+    "endColumn": 3,
+    "endLine": 3,
+    "endOffset": 20,
+    "image": "=",
+    "startColumn": 3,
+    "startLine": 3,
+    "startOffset": 20,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "=",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "KeyValueSeparator",
+      "tokenTypeIdx": 4,
+    },
+    "tokenTypeIdx": 4,
+  },
+  Object {
+    "endColumn": 1,
+    "endLine": 4,
+    "endOffset": 24,
+    "image": "\\"",
+    "startColumn": 1,
+    "startLine": 4,
+    "startOffset": 24,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "\\"",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "Dq",
+      "tokenTypeIdx": 8,
+    },
+    "tokenTypeIdx": 8,
+  },
+  Object {
+    "endColumn": 2,
+    "endLine": 4,
+    "endOffset": 31,
+    "image": ".",
+    "startColumn": 2,
+    "startLine": 4,
+    "startOffset": 31,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": ".",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "TableSeparator",
+      "tokenTypeIdx": 3,
+    },
+    "tokenTypeIdx": 3,
+  },
+  Object {
+    "endColumn": 3,
+    "endLine": 4,
+    "endOffset": 38,
+    "image": "\\"",
+    "startColumn": 3,
+    "startLine": 4,
+    "startOffset": 38,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "\\"",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "Dq",
+      "tokenTypeIdx": 8,
+    },
+    "tokenTypeIdx": 8,
+  },
+  Object {
+    "endColumn": 5,
+    "endLine": 4,
+    "endOffset": 40,
+    "image": "=",
+    "startColumn": 5,
+    "startLine": 4,
+    "startOffset": 40,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "=",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "KeyValueSeparator",
+      "tokenTypeIdx": 4,
+    },
+    "tokenTypeIdx": 4,
+  },
+  Object {
+    "endColumn": 1,
+    "endLine": 6,
+    "endOffset": 45,
+    "image": "[",
+    "startColumn": 1,
+    "startLine": 6,
+    "startOffset": 45,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "[",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "LSquare",
+      "tokenTypeIdx": 5,
+    },
+    "tokenTypeIdx": 5,
+  },
+  Object {
+    "endColumn": 2,
+    "endLine": 6,
+    "endOffset": 51,
+    "image": "]",
+    "startColumn": 2,
+    "startLine": 6,
+    "startOffset": 51,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "]",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "RSquare",
+      "tokenTypeIdx": 6,
+    },
+    "tokenTypeIdx": 6,
+  },
+  Object {
+    "endColumn": 2,
+    "endLine": 7,
+    "endOffset": 59,
+    "image": "=",
+    "startColumn": 2,
+    "startLine": 7,
+    "startOffset": 59,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "=",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "KeyValueSeparator",
+      "tokenTypeIdx": 4,
+    },
+    "tokenTypeIdx": 4,
+  },
+  Object {
+    "endColumn": 1,
+    "endLine": 8,
+    "endOffset": 67,
+    "image": ".",
+    "startColumn": 1,
+    "startLine": 8,
+    "startOffset": 67,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": ".",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "TableSeparator",
+      "tokenTypeIdx": 3,
+    },
+    "tokenTypeIdx": 3,
+  },
+  Object {
+    "endColumn": 3,
+    "endLine": 8,
+    "endOffset": 72,
+    "image": "=",
+    "startColumn": 3,
+    "startLine": 8,
+    "startOffset": 72,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "=",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "KeyValueSeparator",
+      "tokenTypeIdx": 4,
+    },
+    "tokenTypeIdx": 4,
+  },
+  Object {
+    "endColumn": 1,
+    "endLine": 9,
+    "endOffset": 76,
+    "image": "\\"",
+    "startColumn": 1,
+    "startLine": 9,
+    "startOffset": 76,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "\\"",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "Dq",
+      "tokenTypeIdx": 8,
+    },
+    "tokenTypeIdx": 8,
+  },
+  Object {
+    "endColumn": 2,
+    "endLine": 9,
+    "endOffset": 83,
+    "image": ".",
+    "startColumn": 2,
+    "startLine": 9,
+    "startOffset": 83,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": ".",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "TableSeparator",
+      "tokenTypeIdx": 3,
+    },
+    "tokenTypeIdx": 3,
+  },
+  Object {
+    "endColumn": 3,
+    "endLine": 9,
+    "endOffset": 90,
+    "image": "\\"",
+    "startColumn": 3,
+    "startLine": 9,
+    "startOffset": 90,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "\\"",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "Dq",
+      "tokenTypeIdx": 8,
+    },
+    "tokenTypeIdx": 8,
+  },
+  Object {
+    "endColumn": 5,
+    "endLine": 9,
+    "endOffset": 92,
+    "image": "=",
+    "startColumn": 5,
+    "startLine": 9,
+    "startOffset": 92,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": "=",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "KeyValueSeparator",
+      "tokenTypeIdx": 4,
+    },
+    "tokenTypeIdx": 4,
+  },
+]
+`;
+
+exports[`token TableSeparator 1`] = `
+Array [
+  Object {
+    "image": ".",
+    "startOffset": 0,
+    "tokenType": Object {
+      "CATEGORIES": Array [],
+      "PATTERN": ".",
+      "categoryMatches": Array [],
+      "categoryMatchesMap": Object {},
+      "isParent": false,
+      "tokenName": "TableSeparator",
+      "tokenTypeIdx": 3,
+    },
+    "tokenTypeIdx": 3,
+  },
+]
+`;

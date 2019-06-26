@@ -21,7 +21,7 @@
     "coverage": "lerna run coverage",
     "test": "lerna run test",
     "test:update": "lerna run test:update",
-    "test:watch": "lerna run test:watch",
+    "test:watch": "lerna exec yarn run test:watch",
     "predocs": "lerna run predocs",
     "docs": "lerna run docs"
   },
