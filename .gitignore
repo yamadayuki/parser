@@ -92,6 +92,7 @@ typings/
 
 # built files
 packages/*/lib
+packages/*/docs/*.html
 
 # incremental build info
 tsconfig.tsbuildinfo
