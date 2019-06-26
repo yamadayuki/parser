@@ -12,7 +12,8 @@ import {
   StringLiteral,
   NumberLiteral,
   WhiteSpace,
-} from "../token";
+  JSONLexer,
+} from "../lexer";
 
 const lexerOption: ILexerConfig = { positionTracking: "onlyOffset" };
 
@@ -75,5 +76,26 @@ describe("token", () => {
   test("WhiteSpace", () => {
     const whiteSpaceLexer = new Lexer([WhiteSpace], lexerOption);
     expect(whiteSpaceLexer.tokenize("\t").tokens).toMatchSnapshot();
+  });
+
+  test("JSONLexer", () => {
+    const input = `
+{
+  "Image": {
+      "Width":  800,
+      "Height": 600,
+      "Title":  "View from 15th Floor",
+      "Thumbnail": {
+          "Url":    "http://www.example.com/image/481989943",
+          "Height": 125,
+          "Width":  100
+      },
+      "Animated" : false,
+      "IDs": [116, 943, 234, 38793],
+      "Reference": null
+    }
+}
+    `;
+    expect(JSONLexer.tokenize(input).tokens).toMatchSnapshot();
   });
 });

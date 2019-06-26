@@ -75,3 +75,5 @@ export const TOKENS = [
   NumberLiteral,
   WhiteSpace,
 ];
+
+export const JSONLexer = new Lexer(TOKENS, { positionTracking: "full" });
