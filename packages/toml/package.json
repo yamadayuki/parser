@@ -21,6 +21,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "chevrotain": "^4.8.1"
+    "chevrotain": "^4.8.1",
+    "xregexp": "^4.2.4"
+  },
+  "devDependencies": {
+    "@types/xregexp": "^3.0.30"
   }
 }

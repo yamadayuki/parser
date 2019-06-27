@@ -2,7 +2,7 @@ import { ILexerConfig, Lexer } from "chevrotain";
 import {
   Comma,
   KeyValueSeparator,
-  TableSeparator,
+  Period,
   CommentStart,
   Dq,
   Sq,
@@ -23,10 +23,10 @@ describe("token", () => {
     expect(lexer.tokenize(text).tokens).toMatchSnapshot();
   });
 
-  test("TableSeparator", () => {
+  test("Period", () => {
     const text = ".";
 
-    const lexer = new Lexer([TableSeparator], lexerOption);
+    const lexer = new Lexer([Period], lexerOption);
     expect(lexer.tokenize(text).tokens).toMatchSnapshot();
   });
 
@@ -93,6 +93,11 @@ with.dot = 2
 "double.quoted" = 3
 
 [table]
+plain = 1
+with.dot = 2
+"double.quoted" = 3
+
+[table.dot]
 plain = 1
 with.dot = 2
 "double.quoted" = 3

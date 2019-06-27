@@ -1,11 +1,13 @@
 import { CstParser, CstNode } from "chevrotain";
-import { TOKENS, LSquare, RSquare } from "./lexer";
+import { TOKENS, LSquare, RSquare, BareKey, Period, KeyValueSeparator, True, False, DateValue } from "./lexer";
 
 export class TOMLParser extends CstParser {
   public toml!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
-  private comment!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
   private table!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
+  private tableName!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
+  private bareTableName!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
   private keyValue!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
+  private value!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
 
   constructor() {
     super(TOKENS);
@@ -13,11 +15,21 @@ export class TOMLParser extends CstParser {
     const $ = this;
 
     $.RULE("toml", () => {
-      $.OR([
-        // { ALT: () => $.SUBRULE($.comment) },
-        { ALT: () => $.SUBRULE($.table) },
-        // { ALT: () => $.SUBRULE($.keyValue) },
-      ]);
+      $.MANY(() => {
+        $.OR([
+          // { ALT: () => { $.SUBRULE($.comment) } },
+          {
+            ALT: () => {
+              $.SUBRULE($.table);
+            },
+          },
+          {
+            ALT: () => {
+              $.SUBRULE($.keyValue);
+            },
+          },
+        ]);
+      });
     });
 
     $.RULE("table", () => {
@@ -29,6 +41,8 @@ export class TOMLParser extends CstParser {
         isArrayTable = true;
       });
 
+      $.SUBRULE($.tableName); // tableName
+
       $.OPTION1({
         GATE: () => isArrayTable,
         DEF: () => {
@@ -37,6 +51,50 @@ export class TOMLParser extends CstParser {
       });
 
       $.CONSUME(RSquare); // ]  table rsquare
+    });
+
+    $.RULE("tableName", () => {
+      $.SUBRULE($.bareTableName);
+      $.MANY(() => {
+        $.CONSUME(Period);
+        $.SUBRULE1($.bareTableName);
+      });
+    });
+
+    $.RULE("bareTableName", () => {
+      $.CONSUME(BareKey);
+    });
+
+    $.RULE("keyValue", () => {
+      $.CONSUME(BareKey);
+      $.CONSUME(KeyValueSeparator);
+      $.SUBRULE($.value);
+    });
+
+    $.RULE("value", () => {
+      $.OR([
+        {
+          ALT: () => {
+            $.CONSUME(DateValue);
+          },
+        },
+        {
+          ALT: () => {
+            $.OR1([
+              {
+                ALT: () => {
+                  $.CONSUME(True);
+                },
+              },
+              {
+                ALT: () => {
+                  $.CONSUME(False);
+                },
+              },
+            ]);
+          },
+        },
+      ]);
     });
 
     this.performSelfAnalysis();

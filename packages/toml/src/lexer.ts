@@ -1,12 +1,23 @@
 import { createToken, Lexer } from "chevrotain";
+import { build } from "xregexp";
+
+const fragments: { [name: string]: RegExp } = {};
+
+function REGISTER(name: string, pattern: string) {
+  fragments[name] = build(pattern, fragments);
+}
+
+function MAKE_PATTERN(pattern: string, flags?: string) {
+  return build(pattern, fragments, flags);
+}
 
 export const Comma = createToken({
   name: "Comma",
   pattern: ",",
 });
 
-export const TableSeparator = createToken({
-  name: "TableSeparator",
+export const Period = createToken({
+  name: "Period",
   pattern: ".",
 });
 
@@ -52,6 +63,29 @@ export const InlineTableEnd = createToken({
   pattern: "}",
 });
 
+export const True = createToken({
+  name: "True",
+  pattern: "true",
+});
+
+export const False = createToken({
+  name: "False",
+  pattern: "false",
+});
+
+REGISTER("DatePart", "\\d{4}-\\d{2}-\\d{2}");
+REGISTER("TimePart", "\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?");
+
+export const DateValue = createToken({
+  name: "DateValue",
+  pattern: MAKE_PATTERN("{{DatePart}}|{{TimePart}}|{{DatePart}}[T ]{{TimePart}}(?:Z|[+-]\\d{2}:\\d{2})?"),
+});
+
+export const BareKey = createToken({
+  name: "BareKey",
+  pattern: /[0-9a-zA-Z_-]+/,
+});
+
 export const WhiteSpace = createToken({
   name: "WhiteSpace",
   pattern: /[ \t]+/,
@@ -76,7 +110,11 @@ export const TOKENS = [
   InlineTableEnd,
   Comma,
   KeyValueSeparator,
-  TableSeparator,
+  Period,
+  True,
+  False,
+  DateValue,
+  BareKey,
 ];
 
 export const TOMLLexer = new Lexer(TOKENS, { positionTracking: "full" });
