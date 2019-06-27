@@ -1,13 +1,24 @@
-import { CstParser, CstNode } from "chevrotain";
-import { TOKENS, LSquare, RSquare, BareKey, Period, KeyValueSeparator, True, False, DateValue } from "./lexer";
+import { CstNode, CstParser } from "chevrotain";
+import {
+  BasicChar,
+  QuotationMark,
+  TOKENS,
+  ThreeQuotationMark,
+  MultilineBasicChar,
+  Newline,
+  Apostrophe,
+  LiteralChar,
+  ThreeApostrophe,
+  MultilineLiteralChar,
+} from "./lexer";
 
 export class TOMLParser extends CstParser {
   public toml!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
-  private table!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
-  private tableName!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
-  private bareTableName!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
-  private keyValue!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
-  private value!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
+  private expression!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
+  private basicString!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
+  private multilineBasicString!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
+  private literalString!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
+  private multilineLiteralString!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
 
   constructor() {
     super(TOKENS);
@@ -16,85 +27,113 @@ export class TOMLParser extends CstParser {
 
     $.RULE("toml", () => {
       $.MANY(() => {
+        $.SUBRULE($.expression);
+      });
+    });
+
+    $.RULE("expression", () => {
+      $.OR([
+        {
+          ALT: () => {
+            $.CONSUME(Comment);
+          },
+        },
+        // {
+        //   ALT: () => {
+        //     $.SUBRULE($.keyValue);
+        //     $.OPTION(() => {
+        //       $.CONSUME(Comment);
+        //     });
+        //   },
+        // },
+        // {
+        //   ALT: () => {
+        //     $.SUBRULE($.table);
+        //     $.OPTION(() => {
+        //       $.CONSUME(Comment);
+        //     });
+        //   },
+        // },
+      ]);
+    });
+
+    $.RULE("string", () => {
+      $.OR([
+        {
+          ALT: () => {
+            $.SUBRULE($.basicString);
+          },
+        },
+        {
+          ALT: () => {
+            $.SUBRULE($.multilineBasicString);
+          },
+        },
+        {
+          ALT: () => {
+            $.SUBRULE($.literalString);
+          },
+        },
+        {
+          ALT: () => {
+            $.SUBRULE($.multilineLiteralString);
+          },
+        },
+      ]);
+    });
+
+    $.RULE("basicString", () => {
+      $.CONSUME(QuotationMark);
+      $.MANY(() => {
+        $.CONSUME(BasicChar);
+      });
+      $.CONSUME1(QuotationMark);
+    });
+
+    $.RULE("multilineBasicString", () => {
+      $.CONSUME(ThreeQuotationMark);
+      $.MANY(() => {
         $.OR([
-          // { ALT: () => { $.SUBRULE($.comment) } },
           {
             ALT: () => {
-              $.SUBRULE($.table);
+              $.CONSUME(MultilineBasicChar);
             },
           },
           {
             ALT: () => {
-              $.SUBRULE($.keyValue);
+              $.CONSUME(Newline);
             },
           },
         ]);
       });
+      $.CONSUME1(ThreeQuotationMark);
     });
 
-    $.RULE("table", () => {
-      let isArrayTable = false;
-      $.CONSUME(LSquare); // [ table lsquare
-
-      $.OPTION(() => {
-        $.CONSUME1(LSquare); // [ table lsquare and the above is array table lsquare
-        isArrayTable = true;
-      });
-
-      $.SUBRULE($.tableName); // tableName
-
-      $.OPTION1({
-        GATE: () => isArrayTable,
-        DEF: () => {
-          $.CONSUME1(RSquare); // ] table rsquare and the below is array table rsquare
-        },
-      });
-
-      $.CONSUME(RSquare); // ]  table rsquare
-    });
-
-    $.RULE("tableName", () => {
-      $.SUBRULE($.bareTableName);
+    $.RULE("literalString", () => {
+      $.CONSUME(Apostrophe);
       $.MANY(() => {
-        $.CONSUME(Period);
-        $.SUBRULE1($.bareTableName);
+        $.CONSUME(LiteralChar);
       });
+      $.CONSUME1(Apostrophe);
     });
 
-    $.RULE("bareTableName", () => {
-      $.CONSUME(BareKey);
-    });
-
-    $.RULE("keyValue", () => {
-      $.CONSUME(BareKey);
-      $.CONSUME(KeyValueSeparator);
-      $.SUBRULE($.value);
-    });
-
-    $.RULE("value", () => {
-      $.OR([
-        {
-          ALT: () => {
-            $.CONSUME(DateValue);
+    $.RULE("multilineLiteralString", () => {
+      $.CONSUME(ThreeApostrophe);
+      $.MANY(() => {
+        $.OR([
+          {
+            ALT: () => {
+              $.CONSUME(MultilineLiteralChar);
+            },
           },
-        },
-        {
-          ALT: () => {
-            $.OR1([
-              {
-                ALT: () => {
-                  $.CONSUME(True);
-                },
-              },
-              {
-                ALT: () => {
-                  $.CONSUME(False);
-                },
-              },
-            ]);
+          {
+            ALT: () => {
+              $.CONSUME(Newline);
+            },
           },
-        },
-      ]);
+        ]);
+      });
+      $.CONSUME1(ThreeApostrophe);
     });
 
     this.performSelfAnalysis();
