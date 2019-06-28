@@ -99,8 +99,8 @@ REGISTER(
   '[\\u0020-\\u0021]|[\\u0023-\\u005b]|[\\u005d-\\u007e]|[\\u0080-\\ud7ff]|[\\ue000-\\uffff]|\\\\["\\\\bfnrt|\\u0000-\\uffff]'
 );
 
-export const QuotationMark = createToken({
-  name: "QuotationMark",
+export const Dq = createToken({
+  name: "Dq",
   pattern: '"',
 });
 
@@ -123,8 +123,8 @@ export const BasicChar = createToken({
 
 REGISTER("MlBasicUnescaped", "[\\u0020-\\u005B|\\u005D-\\u007E]|{{NonAscii}}");
 
-export const ThreeQuotationMark = createToken({
-  name: "ThreeQuotationMark",
+export const ThreeDq = createToken({
+  name: "ThreeDq",
   pattern: '"""',
 });
 
@@ -143,8 +143,8 @@ export const MultilineBasicChar = createToken({
  * literal-char = %x09 / %x20-26 / %x28-7E / non-ascii
  */
 
-export const Apostrophe = createToken({
-  name: "Apostrophe",
+export const Sq = createToken({
+  name: "Sq",
   pattern: "'",
 });
 
@@ -164,8 +164,8 @@ export const LiteralChar = createToken({
  * ml-literal-char = %x09 / %x20-7E / non-ascii
  */
 
-export const ThreeApostrophe = createToken({
-  name: "ThreeApostrophe",
+export const ThreeSq = createToken({
+  name: "ThreeSq",
   pattern: "'''",
 });
 
@@ -175,10 +175,10 @@ export const MultilineLiteralChar = createToken({
 });
 
 export const TOKENS = [
-  Apostrophe,
-  ThreeApostrophe,
-  QuotationMark,
-  ThreeQuotationMark,
+  Sq,
+  ThreeSq,
+  Dq,
+  ThreeDq,
   LiteralChar,
   MultilineLiteralChar,
   BasicChar,

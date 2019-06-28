@@ -1,15 +1,15 @@
 import { CstNode, CstParser } from "chevrotain";
 import {
   BasicChar,
-  QuotationMark,
-  TOKENS,
-  ThreeQuotationMark,
-  MultilineBasicChar,
-  Newline,
-  Apostrophe,
+  Dq,
   LiteralChar,
-  ThreeApostrophe,
+  MultilineBasicChar,
   MultilineLiteralChar,
+  Newline,
+  Sq,
+  ThreeDq,
+  ThreeSq,
+  TOKENS,
 } from "./lexer";
 
 export class TOMLParser extends CstParser {
@@ -83,15 +83,15 @@ export class TOMLParser extends CstParser {
     });
 
     $.RULE("basicString", () => {
-      $.CONSUME(QuotationMark);
+      $.CONSUME(Dq);
       $.MANY(() => {
         $.CONSUME(BasicChar);
       });
-      $.CONSUME1(QuotationMark);
+      $.CONSUME1(Dq);
     });
 
     $.RULE("multilineBasicString", () => {
-      $.CONSUME(ThreeQuotationMark);
+      $.CONSUME(ThreeDq);
       $.MANY(() => {
         $.OR([
           {
@@ -106,19 +106,19 @@ export class TOMLParser extends CstParser {
           },
         ]);
       });
-      $.CONSUME1(ThreeQuotationMark);
+      $.CONSUME1(ThreeDq);
     });
 
     $.RULE("literalString", () => {
-      $.CONSUME(Apostrophe);
+      $.CONSUME(Sq);
       $.MANY(() => {
         $.CONSUME(LiteralChar);
       });
-      $.CONSUME1(Apostrophe);
+      $.CONSUME1(Sq);
     });
 
     $.RULE("multilineLiteralString", () => {
-      $.CONSUME(ThreeApostrophe);
+      $.CONSUME(ThreeSq);
       $.MANY(() => {
         $.OR([
           {
@@ -133,7 +133,7 @@ export class TOMLParser extends CstParser {
           },
         ]);
       });
-      $.CONSUME1(ThreeApostrophe);
+      $.CONSUME1(ThreeSq);
     });
 
     this.performSelfAnalysis();
