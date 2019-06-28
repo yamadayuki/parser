@@ -481,6 +481,9 @@ export const TOKENS = [
   RCurly,
   DoubleLSquare,
   DoubleRSquare,
+  Whitespace,
+  Newline,
+  Comment,
 
   // Boolean
   True,
@@ -491,6 +494,16 @@ export const TOKENS = [
   LocalDateTime,
   LocalDate,
   LocalTime,
+
+  // Integer
+  DecimalInteger,
+  HexInteger,
+  OctInteger,
+  BinInteger,
+
+  // Float
+  Float,
+  SpecialFloat,
 
   // Key
   UnquotedKey,
@@ -504,20 +517,6 @@ export const TOKENS = [
   MultilineLiteralChar,
   BasicChar,
   MultilineBasicChar,
-
-  // Integer
-  DecimalInteger,
-  HexInteger,
-  OctInteger,
-  BinInteger,
-
-  // Float
-  Float,
-  SpecialFloat,
-
-  Comment,
-  Whitespace,
-  Newline,
 ];
 
 export const TOMLLexer = new Lexer(TOKENS, { positionTracking: "full" });

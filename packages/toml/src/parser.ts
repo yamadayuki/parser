@@ -37,6 +37,7 @@ import {
 export class TOMLParser extends CstParser {
   public toml!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
   private expression!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
+  private comment!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
   private string!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
   private basicString!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
   private multilineBasicString!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
@@ -52,10 +53,12 @@ export class TOMLParser extends CstParser {
   private simpleKey!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
   private dottedKey!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
   private key!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
+  private keyValue!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
   private inlineTableKeyValues!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
   private stdTable!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
   private arrayTable!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
   private inlineTable!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
+  private table!: (idxInCallingRule?: number | undefined, ...args: any[]) => CstNode;
 
   constructor() {
     super(TOKENS, {
@@ -64,13 +67,21 @@ export class TOMLParser extends CstParser {
           OR: true,
         },
       },
+      nodeLocationTracking: "full",
     });
 
     const $ = this;
 
     $.RULE("toml", () => {
-      $.MANY(() => {
+      $.OPTION(() => {
         $.SUBRULE($.expression);
+        $.MANY(() => {
+          $.CONSUME(Newline);
+          $.SUBRULE1($.expression);
+        });
+      });
+      $.OPTION1(() => {
+        $.CONSUME1(Newline);
       });
     });
 
@@ -78,26 +89,30 @@ export class TOMLParser extends CstParser {
       $.OR([
         {
           ALT: () => {
-            $.CONSUME(Comment);
+            $.SUBRULE($.comment);
           },
         },
-        // {
-        //   ALT: () => {
-        //     $.SUBRULE($.keyValue);
-        //     $.OPTION(() => {
-        //       $.CONSUME(Comment);
-        //     });
-        //   },
-        // },
-        // {
-        //   ALT: () => {
-        //     $.SUBRULE($.table);
-        //     $.OPTION(() => {
-        //       $.CONSUME(Comment);
-        //     });
-        //   },
-        // },
+        {
+          ALT: () => {
+            $.SUBRULE($.keyValue);
+            $.OPTION(() => {
+              $.CONSUME1(Comment);
+            });
+          },
+        },
+        {
+          ALT: () => {
+            $.SUBRULE($.table);
+            $.OPTION1(() => {
+              $.CONSUME2(Comment);
+            });
+          },
+        },
       ]);
+    });
+
+    $.RULE("comment", () => {
+      $.CONSUME(Comment);
     });
 
     // val = string / boolean / array / inline-table / date-time / float / integer
@@ -378,12 +393,12 @@ export class TOMLParser extends CstParser {
       $.OR([
         {
           ALT: () => {
-            $.SUBRULE1($.dottedKey);
+            $.SUBRULE1($.simpleKey);
           },
         },
         {
           ALT: () => {
-            $.SUBRULE1($.simpleKey);
+            $.SUBRULE1($.dottedKey);
           },
         },
       ]);
