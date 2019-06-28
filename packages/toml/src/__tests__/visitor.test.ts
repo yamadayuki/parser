@@ -17,7 +17,7 @@ export const setup = (name: string) => ({
 });
 
 describe("visitor", () => {
-  test("bool", () => {
+  xtest("bool", () => {
     const { input, expected } = setup("bool");
     const parsed = parse(input);
     expect(parsed.lexerErrors.length).toBe(0);
@@ -37,8 +37,18 @@ describe("visitor", () => {
     expect(visitor.result).toMatchObject(expected);
   });
 
-  test("float", () => {
+  xtest("float", () => {
     const { input, expected } = setup("float");
+    const parsed = parse(input);
+    expect(parsed.lexerErrors.length).toBe(0);
+    expect(parsed.parserErrors.length).toBe(0);
+    const visitor = new TOMLVisitor();
+    visitor.visit(parsed.toml);
+    expect(visitor.result).toMatchObject(expected);
+  });
+
+  test("float-underscore", () => {
+    const { input, expected } = setup("float-underscore");
     const parsed = parse(input);
     expect(parsed.lexerErrors.length).toBe(0);
     expect(parsed.parserErrors.length).toBe(0);

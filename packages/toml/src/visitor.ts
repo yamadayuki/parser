@@ -86,7 +86,8 @@ export class TOMLVisitor extends BaseCstVisitor {
 
     if (ctx.Float) {
       const token = ctx.Float[0] as IToken;
-      const f = parseFloat(token.image);
+      const floatString = token.image.replace("_", "");
+      const f = parseFloat(floatString);
       this.result[currentKey.image] = f;
     } else {
       console.log(ctx);

@@ -40,7 +40,7 @@ REGISTER("HexWithUnderscore", "{{HEXDIGIT}}|_{{HEXDIGIT}}");
 REGISTER("OctalWithUnderscore", "{{OCTALDIGIT}}|_{{OCTALDIGIT}}");
 REGISTER("BinaryWithUnderscore", "{{BINARYDIGIT}}|_{{BINARYDIGIT}}");
 REGISTER("DecimalInteger", "[+-]?{{UnsignedDecimalInteger}}");
-REGISTER("ZeroPrefixableInteger", "{{DIGIT}}{{DigitWithUnderscore}}?");
+REGISTER("ZeroPrefixableInteger", "{{DIGIT}}{{DigitWithUnderscore}}+");
 REGISTER("FractionPart", "\\.{{ZeroPrefixableInteger}}+");
 REGISTER("Exponential", "e{{ZeroPrefixableInteger}}+");
 REGISTER("Year", "{{DIGIT}}{4}");
