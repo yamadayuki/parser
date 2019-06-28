@@ -1,8 +1,5 @@
-/* eslint-disable @typescript-eslint/explicit-member-accessibility,no-console */
-import { readFileSync } from "fs";
-import { resolve } from "path";
-import { TOMLLexer } from "../lexer";
-import { TOMLParser } from "../parser";
+/* eslint-disable no-console */
+import { TOMLParser } from "./parser";
 import { CstElement, CstNode, CstChildrenDictionary, IToken } from "chevrotain";
 
 const parser = new TOMLParser();
@@ -153,26 +150,3 @@ export class TOMLVisitor extends BaseCstVisitor {
     console.log(ctx);
   }
 }
-
-const visitor = new TOMLVisitor();
-
-describe("TOMLParser", () => {
-  describe("valid", () => {
-    const getFixture = (name: string) => {
-      const input = readFileSync(resolve(__dirname, "__fixtures__", "valid", `${name}.toml`)).toString();
-      const lex = TOMLLexer.tokenize(input);
-      parser.input = lex.tokens;
-      const toml = parser.toml();
-      console.log(lex.tokens);
-      console.log(parser.errors);
-      return toml;
-    };
-
-    test("bool", () => {
-      const parsed = getFixture("bool");
-      visitor.visit(parsed);
-
-      expect(visitor.paths).toEqual(["t", "=", "true", "f", "=", "false"]);
-    });
-  });
-});
