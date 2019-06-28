@@ -47,6 +47,8 @@ export class TOMLVisitor extends BaseCstVisitor {
       this.visitAll(ctx.boolean);
     } else if (ctx.float) {
       this.visitAll(ctx.float);
+    } else if (ctx.integer) {
+      this.visitAll(ctx.integer);
     } else {
       console.log(ctx);
     }
@@ -73,7 +75,21 @@ export class TOMLVisitor extends BaseCstVisitor {
   }
 
   public integer(ctx: CstChildrenDictionary) {
-    console.log(ctx);
+    const currentKey = this.stack.pop();
+
+    if (!currentKey) {
+      new Error("Current key is not found");
+      return;
+    }
+
+    if (ctx.DecimalInteger) {
+      const token = ctx.DecimalInteger[0] as IToken;
+      const integerString = token.image.replace("_", "");
+      const i = parseInt(integerString);
+      this.result[currentKey.image] = i;
+    } else {
+      console.log(ctx);
+    }
   }
 
   public float(ctx: CstChildrenDictionary) {

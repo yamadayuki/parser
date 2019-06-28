@@ -35,7 +35,7 @@ REGISTER(
 );
 REGISTER("MlBasicUnescaped", "[\\u0020-\\u005B|\\u005D-\\u007E]|{{NonAscii}}");
 REGISTER("DigitWithUnderscore", "{{DIGIT}}|_{{DIGIT}}");
-REGISTER("UnsignedDecimalInteger", "{{DIGIT}}|[1-9]{{DigitWithUnderscore}}+");
+REGISTER("UnsignedDecimalInteger", "[1-9]{{DigitWithUnderscore}}+|{{DIGIT}}+");
 REGISTER("HexWithUnderscore", "{{HEXDIGIT}}|_{{HEXDIGIT}}");
 REGISTER("OctalWithUnderscore", "{{OCTALDIGIT}}|_{{OCTALDIGIT}}");
 REGISTER("BinaryWithUnderscore", "{{BINARYDIGIT}}|_{{BINARYDIGIT}}");
