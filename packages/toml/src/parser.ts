@@ -1,4 +1,4 @@
-import { CstNode, CstParser, ILexingError, IRecognitionException } from "chevrotain";
+import { CstNode, CstParser, ILexingError, IRecognitionException, IToken } from "chevrotain";
 import {
   BasicChar,
   BinInteger,
@@ -464,6 +464,7 @@ export interface TOMLParsed {
   toml: CstNode;
   lexerErrors: ILexingError[];
   parserErrors: IRecognitionException[];
+  tokens: IToken[];
 }
 
 export function parse(text: string): TOMLParsed {
@@ -477,5 +478,6 @@ export function parse(text: string): TOMLParsed {
     toml,
     lexerErrors: lex.errors,
     parserErrors: parser.errors,
+    tokens: lex.tokens,
   };
 }

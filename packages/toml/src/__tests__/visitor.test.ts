@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { readFileSync } from "fs";
 import { resolve } from "path";
 import { parse } from "../parser";
@@ -17,16 +18,6 @@ export const setup = (name: string) => ({
 });
 
 describe("visitor", () => {
-  xtest("bool", () => {
-    const { input, expected } = setup("bool");
-    const parsed = parse(input);
-    expect(parsed.lexerErrors.length).toBe(0);
-    expect(parsed.parserErrors.length).toBe(0);
-    const visitor = new TOMLVisitor();
-    visitor.visit(parsed.toml);
-    expect(visitor.result).toMatchObject(expected);
-  });
-
   xtest("empty", () => {
     const { input, expected } = setup("empty");
     const parsed = parse(input);
@@ -37,7 +28,17 @@ describe("visitor", () => {
     expect(visitor.result).toMatchObject(expected);
   });
 
-  xtest("float", () => {
+  test("bool", () => {
+    const { input, expected } = setup("bool");
+    const parsed = parse(input);
+    expect(parsed.lexerErrors.length).toBe(0);
+    expect(parsed.parserErrors.length).toBe(0);
+    const visitor = new TOMLVisitor();
+    visitor.visit(parsed.toml);
+    expect(visitor.result).toMatchObject(expected);
+  });
+
+  test("float", () => {
     const { input, expected } = setup("float");
     const parsed = parse(input);
     expect(parsed.lexerErrors.length).toBe(0);
@@ -51,6 +52,40 @@ describe("visitor", () => {
     const { input, expected } = setup("float-underscore");
     const parsed = parse(input);
     expect(parsed.lexerErrors.length).toBe(0);
+    expect(parsed.parserErrors.length).toBe(0);
+    const visitor = new TOMLVisitor();
+    visitor.visit(parsed.toml);
+    expect(visitor.result).toMatchObject(expected);
+  });
+
+  test("float-exponent", () => {
+    const { input, expected } = setup("float-exponent");
+    const parsed = parse(input);
+    if (parsed.lexerErrors.length > 0) {
+      console.log(parsed.lexerErrors);
+    }
+    expect(parsed.lexerErrors.length).toBe(0);
+    if (parsed.parserErrors.length > 0) {
+      console.log(parsed.parserErrors);
+      console.log(parsed.tokens);
+    }
+    expect(parsed.parserErrors.length).toBe(0);
+    const visitor = new TOMLVisitor();
+    visitor.visit(parsed.toml);
+    expect(visitor.result).toMatchObject(expected);
+  });
+
+  test("exponent-float-part", () => {
+    const { input, expected } = setup("exponent-float-part");
+    const parsed = parse(input);
+    if (parsed.lexerErrors.length > 0) {
+      console.log(parsed.lexerErrors);
+    }
+    expect(parsed.lexerErrors.length).toBe(0);
+    if (parsed.parserErrors.length > 0) {
+      console.log(parsed.parserErrors);
+      console.log(parsed.tokens);
+    }
     expect(parsed.parserErrors.length).toBe(0);
     const visitor = new TOMLVisitor();
     visitor.visit(parsed.toml);

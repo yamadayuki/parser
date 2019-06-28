@@ -40,9 +40,9 @@ REGISTER("HexWithUnderscore", "{{HEXDIGIT}}|_{{HEXDIGIT}}");
 REGISTER("OctalWithUnderscore", "{{OCTALDIGIT}}|_{{OCTALDIGIT}}");
 REGISTER("BinaryWithUnderscore", "{{BINARYDIGIT}}|_{{BINARYDIGIT}}");
 REGISTER("DecimalInteger", "[+-]?{{UnsignedDecimalInteger}}");
-REGISTER("ZeroPrefixableInteger", "{{DIGIT}}{{DigitWithUnderscore}}+");
+REGISTER("ZeroPrefixableInteger", "{{DIGIT}}{{DigitWithUnderscore}}*");
 REGISTER("FractionPart", "\\.{{ZeroPrefixableInteger}}+");
-REGISTER("Exponential", "e{{ZeroPrefixableInteger}}+");
+REGISTER("Exponential", "[eE][+-]?{{ZeroPrefixableInteger}}+");
 REGISTER("Year", "{{DIGIT}}{4}");
 REGISTER("Month", "{{DIGIT}}{2}");
 REGISTER("Day", "{{DIGIT}}{2}");
@@ -264,7 +264,7 @@ export const BinInteger = createToken({
 export const Float = createToken({
   name: "Float",
   pattern: MAKE_PATTERN(
-    "{{DecimalInteger}}{{FractionPart}}|{{DecimalInteger}}{{Exponential}}|{{DecimalInteger}}{{FractionPart}}{{Exponential}}"
+    "{{DecimalInteger}}{{FractionPart}}{{Exponential}}|{{DecimalInteger}}{{FractionPart}}|{{DecimalInteger}}{{Exponential}}"
   ),
 });
 
