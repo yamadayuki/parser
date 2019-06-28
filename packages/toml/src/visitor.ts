@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { CstChildrenDictionary, CstElement, CstNode } from "chevrotain";
+import { CstChildrenDictionary, CstElement, CstNode, IToken } from "chevrotain";
 import { TOMLParser } from "./parser";
 
 const parser = new TOMLParser();
@@ -7,11 +7,13 @@ const BaseCstVisitor = parser.getBaseCstVisitorConstructor();
 
 export class TOMLVisitor extends BaseCstVisitor {
   public result: any;
+  private stack: IToken[];
 
   constructor() {
     super();
     this.result = {};
     this.validateVisitor();
+    this.stack = [];
   }
 
   public visitAll(nodes: CstElement[]) {
@@ -77,7 +79,18 @@ export class TOMLVisitor extends BaseCstVisitor {
   }
 
   public boolean(ctx: CstChildrenDictionary) {
-    console.log(ctx);
+    const currentKey = this.stack.pop();
+
+    if (!currentKey) {
+      new Error("Current key is not found");
+      return;
+    }
+
+    if (ctx.True) {
+      this.result[currentKey.image] = true;
+    } else if (ctx.False) {
+      this.result[currentKey.image] = false;
+    }
   }
 
   public datetime(ctx: CstChildrenDictionary) {
@@ -93,7 +106,11 @@ export class TOMLVisitor extends BaseCstVisitor {
   }
 
   public simpleKey(ctx: CstChildrenDictionary) {
-    console.log(ctx);
+    if (ctx.UnquotedKey) {
+      const key = ctx.UnquotedKey[0] as IToken;
+      this.result[key.image] = null;
+      this.stack.push(key);
+    }
   }
 
   public dottedKey(ctx: CstChildrenDictionary) {
@@ -109,7 +126,13 @@ export class TOMLVisitor extends BaseCstVisitor {
   }
 
   public keyValue(ctx: CstChildrenDictionary) {
-    console.log(ctx);
+    if (ctx.key) {
+      this.visitAll(ctx.key);
+    }
+
+    if (ctx.value) {
+      this.visitAll(ctx.value);
+    }
   }
 
   public stdTable(ctx: CstChildrenDictionary) {
