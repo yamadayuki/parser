@@ -26,4 +26,24 @@ describe("visitor", () => {
     visitor.visit(parsed.toml);
     expect(visitor.result).toMatchObject(expected);
   });
+
+  xtest("empty", () => {
+    const { input, expected } = setup("empty");
+    const parsed = parse(input);
+    expect(parsed.lexerErrors.length).toBe(0);
+    expect(parsed.parserErrors.length).toBe(0);
+    const visitor = new TOMLVisitor();
+    visitor.visit(parsed.toml);
+    expect(visitor.result).toMatchObject(expected);
+  });
+
+  test("float", () => {
+    const { input, expected } = setup("float");
+    const parsed = parse(input);
+    expect(parsed.lexerErrors.length).toBe(0);
+    expect(parsed.parserErrors.length).toBe(0);
+    const visitor = new TOMLVisitor();
+    visitor.visit(parsed.toml);
+    expect(visitor.result).toMatchObject(expected);
+  });
 });

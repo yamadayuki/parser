@@ -45,6 +45,8 @@ export class TOMLVisitor extends BaseCstVisitor {
   public value(ctx: CstChildrenDictionary) {
     if (ctx.boolean) {
       this.visitAll(ctx.boolean);
+    } else if (ctx.float) {
+      this.visitAll(ctx.float);
     } else {
       console.log(ctx);
     }
@@ -75,7 +77,20 @@ export class TOMLVisitor extends BaseCstVisitor {
   }
 
   public float(ctx: CstChildrenDictionary) {
-    console.log(ctx);
+    const currentKey = this.stack.pop();
+
+    if (!currentKey) {
+      new Error("Current key is not found");
+      return;
+    }
+
+    if (ctx.Float) {
+      const token = ctx.Float[0] as IToken;
+      const f = parseFloat(token.image);
+      this.result[currentKey.image] = f;
+    } else {
+      console.log(ctx);
+    }
   }
 
   public boolean(ctx: CstChildrenDictionary) {

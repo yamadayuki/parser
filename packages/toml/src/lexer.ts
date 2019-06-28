@@ -1,7 +1,7 @@
 import { createToken, Lexer } from "chevrotain";
 import { build } from "xregexp";
 
-const fragments: { [name: string]: RegExp } = {};
+export const fragments: { [name: string]: RegExp } = {};
 
 function REGISTER(name: string, pattern: string) {
   fragments[name] = build(pattern, fragments);
@@ -40,9 +40,9 @@ REGISTER("HexWithUnderscore", "{{HEXDIGIT}}|_{{HEXDIGIT}}");
 REGISTER("OctalWithUnderscore", "{{OCTALDIGIT}}|_{{OCTALDIGIT}}");
 REGISTER("BinaryWithUnderscore", "{{BINARYDIGIT}}|_{{BINARYDIGIT}}");
 REGISTER("DecimalInteger", "[+-]?{{UnsignedDecimalInteger}}");
-REGISTER("ZeroPrefixableInteger", "{{DIGIT}}{{DigitWithUnderscore}}");
-REGISTER("FractionPart", "\\.{{ZeroPrefixableInteger}}");
-REGISTER("Exponential", "e{{DecimalInteger}}");
+REGISTER("ZeroPrefixableInteger", "{{DIGIT}}{{DigitWithUnderscore}}?");
+REGISTER("FractionPart", "\\.{{ZeroPrefixableInteger}}+");
+REGISTER("Exponential", "e{{ZeroPrefixableInteger}}+");
 REGISTER("Year", "{{DIGIT}}{4}");
 REGISTER("Month", "{{DIGIT}}{2}");
 REGISTER("Day", "{{DIGIT}}{2}");
@@ -263,7 +263,9 @@ export const BinInteger = createToken({
 
 export const Float = createToken({
   name: "Float",
-  pattern: MAKE_PATTERN("\\b{{DecimalInteger}}({{Exponential}}|{{FractionPart}}{{Exponential}})?\\b"),
+  pattern: MAKE_PATTERN(
+    "{{DecimalInteger}}{{FractionPart}}|{{DecimalInteger}}{{Exponential}}|{{DecimalInteger}}{{FractionPart}}{{Exponential}}"
+  ),
 });
 
 export const SpecialFloat = createToken({
@@ -475,7 +477,6 @@ export const TOKENS = [
   LSquare,
   RSquare,
   Comma,
-  Dot,
   Eq,
   LCurly,
   RCurly,
@@ -495,18 +496,19 @@ export const TOKENS = [
   LocalDate,
   LocalTime,
 
+  // Float
+  Float,
+  SpecialFloat,
+
   // Integer
   DecimalInteger,
   HexInteger,
   OctInteger,
   BinInteger,
 
-  // Float
-  Float,
-  SpecialFloat,
-
   // Key
   UnquotedKey,
+  Dot,
 
   // String
   Sq,
