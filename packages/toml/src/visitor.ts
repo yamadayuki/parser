@@ -1,16 +1,16 @@
 /* eslint-disable no-console */
+import { CstChildrenDictionary, CstElement, CstNode } from "chevrotain";
 import { TOMLParser } from "./parser";
-import { CstElement, CstNode, CstChildrenDictionary, IToken } from "chevrotain";
 
 const parser = new TOMLParser();
 const BaseCstVisitor = parser.getBaseCstVisitorConstructor();
 
 export class TOMLVisitor extends BaseCstVisitor {
-  public paths: string[];
+  public result: any;
 
   constructor() {
     super();
-    this.paths = [];
+    this.result = {};
     this.validateVisitor();
   }
 
@@ -77,13 +77,7 @@ export class TOMLVisitor extends BaseCstVisitor {
   }
 
   public boolean(ctx: CstChildrenDictionary) {
-    if (ctx.True) {
-      this.paths.push((ctx.True[0] as IToken).image);
-    } else if (ctx.False) {
-      this.paths.push((ctx.False[0] as IToken).image);
-    } else {
-      console.log(ctx);
-    }
+    console.log(ctx);
   }
 
   public datetime(ctx: CstChildrenDictionary) {
@@ -99,11 +93,7 @@ export class TOMLVisitor extends BaseCstVisitor {
   }
 
   public simpleKey(ctx: CstChildrenDictionary) {
-    if (ctx.UnquotedKey) {
-      this.paths.push((ctx.UnquotedKey[0] as any).image);
-    } else {
-      console.log(ctx);
-    }
+    console.log(ctx);
   }
 
   public dottedKey(ctx: CstChildrenDictionary) {
@@ -119,15 +109,7 @@ export class TOMLVisitor extends BaseCstVisitor {
   }
 
   public keyValue(ctx: CstChildrenDictionary) {
-    if (ctx.key) {
-      this.visitAll(ctx.key);
-    }
-    if (ctx.Eq) {
-      this.paths.push((ctx.Eq[0] as any).image);
-    }
-    if (ctx.value) {
-      this.visitAll(ctx.value);
-    }
+    console.log(ctx);
   }
 
   public stdTable(ctx: CstChildrenDictionary) {

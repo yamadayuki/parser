@@ -163,8 +163,6 @@ describe("TOMLParser", () => {
       const lex = TOMLLexer.tokenize(input);
       parser.input = lex.tokens;
       const toml = parser.toml();
-      console.log(lex.tokens);
-      console.log(parser.errors);
       return toml;
     };
 

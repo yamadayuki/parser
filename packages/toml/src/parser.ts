@@ -1,4 +1,4 @@
-import { CstNode, CstParser } from "chevrotain";
+import { CstNode, CstParser, ILexingError, IRecognitionException } from "chevrotain";
 import {
   BasicChar,
   BinInteger,
@@ -32,6 +32,7 @@ import {
   RCurly,
   DoubleLSquare,
   DoubleRSquare,
+  TOMLLexer,
 } from "./lexer";
 
 export class TOMLParser extends CstParser {
@@ -457,4 +458,24 @@ export class TOMLParser extends CstParser {
 
     this.performSelfAnalysis();
   }
+}
+
+export interface TOMLParsed {
+  toml: CstNode;
+  lexerErrors: ILexingError[];
+  parserErrors: IRecognitionException[];
+}
+
+export function parse(text: string): TOMLParsed {
+  const parser = new TOMLParser();
+
+  const lex = TOMLLexer.tokenize(text);
+  parser.input = lex.tokens;
+  const toml = parser.toml();
+
+  return {
+    toml,
+    lexerErrors: lex.errors,
+    parserErrors: parser.errors,
+  };
 }
