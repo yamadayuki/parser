@@ -125,4 +125,38 @@ describe("visitor", () => {
     visitor.visit(parsed.toml);
     expect(visitor.result).toMatchObject(expected);
   });
+
+  test("long-integer", () => {
+    const { input, expected } = setup("long-integer");
+    const parsed = parse(input);
+    if (parsed.lexerErrors.length > 0) {
+      console.log(parsed.lexerErrors);
+    }
+    expect(parsed.lexerErrors.length).toBe(0);
+    if (parsed.parserErrors.length > 0) {
+      console.log(parsed.parserErrors);
+      console.log(parsed.tokens);
+    }
+    expect(parsed.parserErrors.length).toBe(0);
+    const visitor = new TOMLVisitor();
+    visitor.visit(parsed.toml);
+    expect(visitor.result).toMatchObject(expected);
+  });
+
+  test("long-float", () => {
+    const { input, expected } = setup("long-float");
+    const parsed = parse(input);
+    if (parsed.lexerErrors.length > 0) {
+      console.log(parsed.lexerErrors);
+    }
+    expect(parsed.lexerErrors.length).toBe(0);
+    if (parsed.parserErrors.length > 0) {
+      console.log(parsed.parserErrors);
+      console.log(parsed.tokens);
+    }
+    expect(parsed.parserErrors.length).toBe(0);
+    const visitor = new TOMLVisitor();
+    visitor.visit(parsed.toml);
+    expect(visitor.result).toMatchObject(expected);
+  });
 });

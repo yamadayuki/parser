@@ -85,7 +85,11 @@ export class TOMLVisitor extends BaseCstVisitor {
     if (ctx.DecimalInteger) {
       const token = ctx.DecimalInteger[0] as IToken;
       const integerString = token.image.replace("_", "");
-      const i = parseInt(integerString);
+      let i: string | number = parseInt(integerString);
+      if (integerString !== i.toString() && integerString !== `+${i.toString()}`) {
+        // eslint-disable-next-line no-undef
+        i = `${BigInt(integerString).toString()}n`;
+      }
       this.result[currentKey.image] = i;
     } else {
       console.log(ctx);
