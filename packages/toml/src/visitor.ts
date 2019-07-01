@@ -8,6 +8,7 @@ const BaseCstVisitor = parser.getBaseCstVisitorConstructor();
 export class TOMLVisitor extends BaseCstVisitor {
   public result: any;
   private stack: IToken[];
+  private arrayLevel: number = 0;
 
   constructor() {
     super();
@@ -51,6 +52,8 @@ export class TOMLVisitor extends BaseCstVisitor {
       this.visitAll(ctx.integer);
     } else if (ctx.string) {
       this.visitAll(ctx.string);
+    } else if (ctx.array) {
+      this.visitAll(ctx.array);
     } else {
       console.log(ctx);
     }
@@ -166,11 +169,48 @@ export class TOMLVisitor extends BaseCstVisitor {
   }
 
   public arrayValues(ctx: CstChildrenDictionary) {
-    console.log(ctx);
+    if (ctx.value) {
+      this.visitAll(ctx.value);
+    } else {
+      console.log(ctx);
+    }
   }
 
   public array(ctx: CstChildrenDictionary) {
-    console.log(ctx);
+    const currentKey = this.stack.pop();
+
+    if (!currentKey) {
+      new Error("Current key is not found");
+      return;
+    }
+
+    const l = ctx.LSquare[0] as IToken;
+    const r = ctx.RSquare[0] as IToken;
+
+    if (!l || !r) {
+      throw new Error(`unexpected lexing: LSquare: ${l}, RSquare: ${r}`);
+    }
+
+    if (ctx.arrayValues) {
+      this.arrayLevel += 1;
+
+      this.stack.push(currentKey);
+      this.visitAll(ctx.arrayValues);
+    } else {
+      // This pattern is the empty array
+    }
+
+    this.arrayLevel -= 1;
+
+    if (this.result[currentKey.image]) {
+      this.result[currentKey.image] = [this.result[currentKey.image]];
+    } else {
+      this.result[currentKey.image] = [];
+    }
+
+    if (this.arrayLevel < 0) {
+      this.stack.pop();
+    }
   }
 
   public simpleKey(ctx: CstChildrenDictionary) {
