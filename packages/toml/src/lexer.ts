@@ -30,7 +30,7 @@ REGISTER("Escape", "\\\\"); // \
 REGISTER("EscapeSequenceChars", '["\\\\bfnrt|\\u{0000}-\\u{FFFF}]');
 REGISTER("Escaped", "{{Escape}}{{EscapeSequenceChars}}");
 REGISTER(
-  "BasicChar",
+  "BasicString",
   '[\\u0020-\\u0021]|[\\u0023-\\u005b]|[\\u005d-\\u007e]|[\\u0080-\\ud7ff]|[\\ue000-\\uffff]|\\\\["\\\\bfnrt|\\u0000-\\uffff]'
 );
 REGISTER("MlBasicUnescaped", "[\\u0020-\\u005B|\\u005D-\\u007E]|{{NonAscii}}");
@@ -80,6 +80,7 @@ const Whitespace = createToken({
 export const Newline = createToken({
   name: "Newline",
   pattern: MAKE_PATTERN("{{Newline}}"),
+  group: Lexer.SKIPPED,
 });
 
 /**
@@ -126,14 +127,14 @@ const Comment = createToken({
  * escape-seq-char =/ %x55 8HEXDIG ; UXXXXXXXX            U+XXXXXXXX
  */
 
-export const Dq = createToken({
-  name: "Dq",
-  pattern: '"',
-});
+// export const Dq = createToken({
+//   name: "Dq",
+//   pattern: '"',
+// });
 
-export const BasicChar = createToken({
-  name: "BasicChar",
-  pattern: MAKE_PATTERN("{{BasicChar}}"),
+export const BasicString = createToken({
+  name: "BasicString",
+  pattern: MAKE_PATTERN('"{{BasicString}}*"'),
 });
 
 /**
@@ -153,8 +154,8 @@ export const ThreeDq = createToken({
   pattern: '"""',
 });
 
-export const MultilineBasicChar = createToken({
-  name: "MultilineBasicChar",
+export const MultilineBasicString = createToken({
+  name: "MultilineBasicString",
   pattern: MAKE_PATTERN("{{MlBasicUnescaped}}|{{Escaped}}"),
 });
 
@@ -513,12 +514,12 @@ export const TOKENS = [
   // String
   // Sq,
   // ThreeSq,
-  Dq,
+  // Dq,
   ThreeDq,
   MultilineLiteralString,
   LiteralString,
-  BasicChar,
-  MultilineBasicChar,
+  BasicString,
+  MultilineBasicString,
 ];
 
 export const TOMLLexer = new Lexer(TOKENS, { positionTracking: "full" });

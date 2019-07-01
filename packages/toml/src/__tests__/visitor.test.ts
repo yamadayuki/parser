@@ -227,4 +227,38 @@ describe("visitor", () => {
     visitor.visit(parsed.toml);
     expect(visitor.result).toMatchObject(expected);
   });
+
+  test("array-string-quote-comma", () => {
+    const { input, expected } = setup("array-string-quote-comma");
+    const parsed = parse(input);
+    if (parsed.lexerErrors.length > 0) {
+      console.log(parsed.lexerErrors);
+      console.log(parsed.tokens);
+    }
+    expect(parsed.lexerErrors.length).toBe(0);
+    if (parsed.parserErrors.length > 0) {
+      console.log(parsed.parserErrors[0]);
+    }
+    expect(parsed.parserErrors.length).toBe(0);
+    const visitor = new TOMLVisitor();
+    visitor.visit(parsed.toml);
+    expect(visitor.result).toMatchObject(expected);
+  });
+
+  test("array-string-comma", () => {
+    const { input, expected } = setup("array-string-comma");
+    const parsed = parse(input);
+    if (parsed.lexerErrors.length > 0) {
+      console.log(parsed.lexerErrors);
+      console.log(parsed.tokens);
+    }
+    expect(parsed.lexerErrors.length).toBe(0);
+    if (parsed.parserErrors.length > 0) {
+      console.log(parsed.parserErrors[0]);
+    }
+    expect(parsed.parserErrors.length).toBe(0);
+    const visitor = new TOMLVisitor();
+    visitor.visit(parsed.toml);
+    expect(visitor.result).toMatchObject(expected);
+  });
 });

@@ -1,18 +1,14 @@
 import { CstNode, CstParser, ILexingError, IRecognitionException, IToken } from "chevrotain";
 import {
-  BasicChar,
+  BasicString,
   BinInteger,
   DecimalInteger,
-  Dq,
   HexInteger,
   LiteralString,
-  MultilineBasicChar,
+  MultilineBasicString,
   MultilineLiteralString,
-  Newline,
   OctInteger,
-  // Sq,
   ThreeDq,
-  // ThreeSq,
   TOKENS,
   Float,
   SpecialFloat,
@@ -77,12 +73,8 @@ export class TOMLParser extends CstParser {
       $.OPTION(() => {
         $.SUBRULE($.expression);
         $.MANY(() => {
-          $.CONSUME(Newline);
           $.SUBRULE1($.expression);
         });
-      });
-      $.OPTION1(() => {
-        $.CONSUME1(Newline);
       });
     });
 
@@ -189,11 +181,7 @@ export class TOMLParser extends CstParser {
 
     // basic-string = quotation-mark *basic-char quotation-mark
     $.RULE("basicString", () => {
-      $.CONSUME(Dq);
-      $.MANY(() => {
-        $.CONSUME(BasicChar);
-      });
-      $.CONSUME1(Dq);
+      $.CONSUME(BasicString);
     });
 
     // ml-basic-string = ml-basic-string-delim ml-basic-body ml-basic-string-delim
@@ -203,12 +191,7 @@ export class TOMLParser extends CstParser {
         $.OR([
           {
             ALT: () => {
-              $.CONSUME(MultilineBasicChar);
-            },
-          },
-          {
-            ALT: () => {
-              $.CONSUME(Newline);
+              $.CONSUME(MultilineBasicString);
             },
           },
         ]);
@@ -337,7 +320,7 @@ export class TOMLParser extends CstParser {
 
     $.RULE("array", () => {
       $.CONSUME(LSquare);
-      $.OPTION(() => {
+      $.OPTION1(() => {
         $.SUBRULE($.arrayValues);
       });
       $.CONSUME(RSquare);

@@ -59,18 +59,45 @@ export class TOMLVisitor extends BaseCstVisitor {
     }
   }
 
-  public string(ctx: CstChildrenDictionary) {
+  public string(ctx: CstChildrenDictionary, param?: any) {
     if (ctx.literalString) {
-      this.visitAll(ctx.literalString);
+      this.visitAll(ctx.literalString, param);
     } else if (ctx.multilineLiteralString) {
-      this.visitAll(ctx.multilineLiteralString);
+      this.visitAll(ctx.multilineLiteralString, param);
+    } else if (ctx.basicString) {
+      this.visitAll(ctx.basicString, param);
     } else {
       console.log(ctx);
     }
   }
 
-  public basicString(ctx: CstChildrenDictionary) {
-    console.log(ctx);
+  public basicString(ctx: CstChildrenDictionary, param?: any) {
+    const currentKey = this.stack.pop();
+
+    if (!currentKey) {
+      throw new Error("Current key is not found");
+    }
+
+    if (ctx.BasicString) {
+      const token = ctx.BasicString[0] as IToken;
+
+      if (param && param.isArray) {
+        this.result[currentKey.image].push(
+          token.image
+            .slice(1, -1)
+            .split(/\\/)
+            .join("")
+        );
+      } else {
+        this.result[currentKey.image] = token.image.slice(1, -1);
+      }
+    } else {
+      console.log(ctx);
+    }
+
+    if (param && param.isArray) {
+      this.stack.push(currentKey);
+    }
   }
 
   public multilineBasicString(ctx: CstChildrenDictionary) {
@@ -81,8 +108,7 @@ export class TOMLVisitor extends BaseCstVisitor {
     const currentKey = this.stack.pop();
 
     if (!currentKey) {
-      new Error("Current key is not found");
-      return;
+      throw new Error("Current key is not found");
     }
 
     if (ctx.LiteralString) {
@@ -97,8 +123,7 @@ export class TOMLVisitor extends BaseCstVisitor {
     const currentKey = this.stack.pop();
 
     if (!currentKey) {
-      new Error("Current key is not found");
-      return;
+      throw new Error("Current key is not found");
     }
 
     if (ctx.MultilineLiteralString) {
@@ -124,6 +149,7 @@ export class TOMLVisitor extends BaseCstVisitor {
         // eslint-disable-next-line no-undef
         i = `${BigInt(integerString).toString()}n`;
       }
+
       if (param && param.isArray) {
         this.result[currentKey.image].push(i);
       } else {
