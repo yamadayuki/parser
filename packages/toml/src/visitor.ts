@@ -59,6 +59,8 @@ export class TOMLVisitor extends BaseCstVisitor {
   public string(ctx: CstChildrenDictionary) {
     if (ctx.literalString) {
       this.visitAll(ctx.literalString);
+    } else if (ctx.multilineLiteralString) {
+      this.visitAll(ctx.multilineLiteralString);
     } else {
       console.log(ctx);
     }
@@ -89,7 +91,19 @@ export class TOMLVisitor extends BaseCstVisitor {
   }
 
   public multilineLiteralString(ctx: CstChildrenDictionary) {
-    console.log(ctx);
+    const currentKey = this.stack.pop();
+
+    if (!currentKey) {
+      new Error("Current key is not found");
+      return;
+    }
+
+    if (ctx.MultilineLiteralString) {
+      const token = ctx.MultilineLiteralString[0] as IToken;
+      this.result[currentKey.image] = token.image.slice(3, -3).trim();
+    } else {
+      console.log(ctx);
+    }
   }
 
   public integer(ctx: CstChildrenDictionary) {

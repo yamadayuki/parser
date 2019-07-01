@@ -12,7 +12,7 @@ import {
   OctInteger,
   // Sq,
   ThreeDq,
-  ThreeSq,
+  // ThreeSq,
   TOKENS,
   Float,
   SpecialFloat,
@@ -121,11 +121,6 @@ export class TOMLParser extends CstParser {
       $.OR([
         {
           ALT: () => {
-            $.SUBRULE($.string);
-          },
-        },
-        {
-          ALT: () => {
             $.SUBRULE($.datetime);
           },
         },
@@ -152,6 +147,11 @@ export class TOMLParser extends CstParser {
         {
           ALT: () => {
             $.SUBRULE($.inlineTable);
+          },
+        },
+        {
+          ALT: () => {
+            $.SUBRULE($.string);
           },
         },
       ]);
@@ -223,22 +223,7 @@ export class TOMLParser extends CstParser {
 
     // ml-literal-string = ml-literal-string-delim ml-literal-body ml-literal-string-delim
     $.RULE("multilineLiteralString", () => {
-      $.CONSUME(ThreeSq);
-      $.MANY(() => {
-        $.OR([
-          {
-            ALT: () => {
-              $.CONSUME(MultilineLiteralString);
-            },
-          },
-          {
-            ALT: () => {
-              $.CONSUME(Newline);
-            },
-          },
-        ]);
-      });
-      $.CONSUME1(ThreeSq);
+      $.CONSUME(MultilineLiteralString);
     });
 
     /**
