@@ -210,4 +210,21 @@ describe("visitor", () => {
     visitor.visit(parsed.toml);
     expect(visitor.result).toMatchObject(expected);
   });
+
+  test("array-nospaces", () => {
+    const { input, expected } = setup("array-nospaces");
+    const parsed = parse(input);
+    if (parsed.lexerErrors.length > 0) {
+      console.log(parsed.lexerErrors);
+      console.log(parsed.tokens);
+    }
+    expect(parsed.lexerErrors.length).toBe(0);
+    if (parsed.parserErrors.length > 0) {
+      console.log(parsed.parserErrors[0]);
+    }
+    expect(parsed.parserErrors.length).toBe(0);
+    const visitor = new TOMLVisitor();
+    visitor.visit(parsed.toml);
+    expect(visitor.result).toMatchObject(expected);
+  });
 });

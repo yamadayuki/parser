@@ -17,13 +17,13 @@ export class TOMLVisitor extends BaseCstVisitor {
     this.stack = [];
   }
 
-  public visitAll(nodes: CstElement[]) {
+  public visitAll(nodes: CstElement[], param?: any) {
     try {
       nodes.forEach(node => {
-        this.visit(node as CstNode);
+        this.visit(node as CstNode, param);
       });
     } catch (err) {
-      console.log({ nodes, err });
+      console.log({ ...nodes, err });
     }
   }
 
@@ -43,17 +43,17 @@ export class TOMLVisitor extends BaseCstVisitor {
     console.log(ctx);
   }
 
-  public value(ctx: CstChildrenDictionary) {
+  public value(ctx: CstChildrenDictionary, param?: any) {
     if (ctx.boolean) {
-      this.visitAll(ctx.boolean);
+      this.visitAll(ctx.boolean, param);
     } else if (ctx.float) {
-      this.visitAll(ctx.float);
+      this.visitAll(ctx.float, param);
     } else if (ctx.integer) {
-      this.visitAll(ctx.integer);
+      this.visitAll(ctx.integer, param);
     } else if (ctx.string) {
-      this.visitAll(ctx.string);
+      this.visitAll(ctx.string, param);
     } else if (ctx.array) {
-      this.visitAll(ctx.array);
+      this.visitAll(ctx.array, param);
     } else {
       console.log(ctx);
     }
@@ -109,12 +109,11 @@ export class TOMLVisitor extends BaseCstVisitor {
     }
   }
 
-  public integer(ctx: CstChildrenDictionary) {
+  public integer(ctx: CstChildrenDictionary, param?: any) {
     const currentKey = this.stack.pop();
 
     if (!currentKey) {
-      new Error("Current key is not found");
-      return;
+      throw new Error("Current key is not found");
     }
 
     if (ctx.DecimalInteger) {
@@ -125,9 +124,17 @@ export class TOMLVisitor extends BaseCstVisitor {
         // eslint-disable-next-line no-undef
         i = `${BigInt(integerString).toString()}n`;
       }
-      this.result[currentKey.image] = i;
+      if (param && param.isArray) {
+        this.result[currentKey.image].push(i);
+      } else {
+        this.result[currentKey.image] = i;
+      }
     } else {
       console.log(ctx);
+    }
+
+    if (param && param.isArray) {
+      this.stack.push(currentKey);
     }
   }
 
@@ -169,9 +176,16 @@ export class TOMLVisitor extends BaseCstVisitor {
   }
 
   public arrayValues(ctx: CstChildrenDictionary) {
-    if (ctx.value) {
-      this.visitAll(ctx.value);
-    } else {
+    const { value, arrayValues } = ctx;
+
+    if (value) {
+      this.visitAll(value, { isArray: true });
+    }
+
+    if (arrayValues) {
+      this.visitAll(arrayValues);
+    }
+    if (!value && !arrayValues) {
       console.log(ctx);
     }
   }
@@ -191,6 +205,12 @@ export class TOMLVisitor extends BaseCstVisitor {
       throw new Error(`unexpected lexing: LSquare: ${l}, RSquare: ${r}`);
     }
 
+    if (this.result[currentKey.image]) {
+      this.result[currentKey.image] = [this.result[currentKey.image]];
+    } else {
+      this.result[currentKey.image] = [];
+    }
+
     if (ctx.arrayValues) {
       this.arrayLevel += 1;
 
@@ -201,12 +221,6 @@ export class TOMLVisitor extends BaseCstVisitor {
     }
 
     this.arrayLevel -= 1;
-
-    if (this.result[currentKey.image]) {
-      this.result[currentKey.image] = [this.result[currentKey.image]];
-    } else {
-      this.result[currentKey.image] = [];
-    }
 
     if (this.arrayLevel < 0) {
       this.stack.pop();

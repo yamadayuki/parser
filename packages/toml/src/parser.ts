@@ -329,7 +329,7 @@ export class TOMLParser extends CstParser {
 
     $.RULE("arrayValues", () => {
       $.SUBRULE($.value);
-      $.OPTION(() => {
+      $.MANY(() => {
         $.CONSUME(Comma);
         $.SUBRULE($.arrayValues);
       });
