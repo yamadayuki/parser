@@ -168,14 +168,14 @@ export const MultilineBasicChar = createToken({
  * literal-char = %x09 / %x20-26 / %x28-7E / non-ascii
  */
 
-export const Sq = createToken({
-  name: "Sq",
-  pattern: "'",
-});
+// export const Sq = createToken({
+//   name: "Sq",
+//   pattern: "'",
+// });
 
-export const LiteralChar = createToken({
-  name: "LiteralChar",
-  pattern: MAKE_PATTERN("[\\u0009|\\u0020-\\u0026|\\u0028-\\u007E]|{{NonAscii}}"),
+export const LiteralString = createToken({
+  name: "LiteralString",
+  pattern: MAKE_PATTERN("'([\\u0009|\\u0020-\\u0026|\\u0028-\\u007E]|{{NonAscii}})*'"),
 });
 
 /**
@@ -194,8 +194,8 @@ export const ThreeSq = createToken({
   pattern: "'''",
 });
 
-export const MultilineLiteralChar = createToken({
-  name: "MultilineLiteralChar",
+export const MultilineLiteralString = createToken({
+  name: "MultilineLiteralString",
   pattern: MAKE_PATTERN("[\\u0009|\\u0020-\\u007E]|{{NonAscii}}"),
 });
 
@@ -511,12 +511,12 @@ export const TOKENS = [
   Dot,
 
   // String
-  Sq,
+  // Sq,
   ThreeSq,
   Dq,
   ThreeDq,
-  LiteralChar,
-  MultilineLiteralChar,
+  LiteralString,
+  MultilineLiteralString,
   BasicChar,
   MultilineBasicChar,
 ];

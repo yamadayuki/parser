@@ -5,12 +5,12 @@ import {
   DecimalInteger,
   Dq,
   HexInteger,
-  LiteralChar,
+  LiteralString,
   MultilineBasicChar,
-  MultilineLiteralChar,
+  MultilineLiteralString,
   Newline,
   OctInteger,
-  Sq,
+  // Sq,
   ThreeDq,
   ThreeSq,
   TOKENS,
@@ -218,11 +218,7 @@ export class TOMLParser extends CstParser {
 
     // literal-string = apostrophe *literal-char apostrophe
     $.RULE("literalString", () => {
-      $.CONSUME(Sq);
-      $.MANY(() => {
-        $.CONSUME(LiteralChar);
-      });
-      $.CONSUME1(Sq);
+      $.CONSUME(LiteralString);
     });
 
     // ml-literal-string = ml-literal-string-delim ml-literal-body ml-literal-string-delim
@@ -232,7 +228,7 @@ export class TOMLParser extends CstParser {
         $.OR([
           {
             ALT: () => {
-              $.CONSUME(MultilineLiteralChar);
+              $.CONSUME(MultilineLiteralString);
             },
           },
           {
