@@ -1809,10 +1809,10 @@ chardet@^0.7.0:
   resolved "https://registry.npmjs.org/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
-chevrotain@^4.8.1:
-  version "4.8.1"
-  resolved "https://registry.npmjs.org/chevrotain/-/chevrotain-4.8.1.tgz#9a4d120ae31f63ab3260c589f9eb9362d51acb2b"
-  integrity sha512-Dd2oHFdscdm8MSmG0ejTXdMlqKR5ryeKuwLpsf1ZOs3l8HD/jPfIY0MYs9Eh4X3gm9h0CR155zpVYFK+uAI3tA==
+chevrotain@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/chevrotain/-/chevrotain-6.1.0.tgz#4c1da8dc3bbb75fb8b832217201365028ba7855c"
+  integrity sha512-HQlAOQZyHaJyKTV/mN3lV6soTP0+faEbRyuxi0lelahEAulAjaKhIqhk0amCzP1e8fhiikzCqcHN9eEWlWR6RA==
   dependencies:
     regexp-to-ast "0.4.0"
 
