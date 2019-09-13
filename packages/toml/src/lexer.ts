@@ -93,7 +93,7 @@ export const Newline = createToken({
  * comment = comment-start-symbol *non-eol
  */
 
-const Comment = createToken({
+export const Comment = createToken({
   name: "Comment",
   pattern: MAKE_PATTERN("{{Comment}}"),
 });
