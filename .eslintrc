@@ -1,3 +1,9 @@
 {
-  "extends": "wantedly-typescript/without-react"
+  "extends": "wantedly-typescript/without-react",
+  "parserOptions": {
+    "project": ["packages/json/tsconfig.json", "packages/toml/tsconfig.json"]
+  },
+  "rules": {
+    "@typescript-eslint/no-this-alias": ["off"]
+  }
 }
