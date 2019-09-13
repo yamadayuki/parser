@@ -3,6 +3,7 @@ import {
   BasicString,
   BinInteger,
   Comma,
+  Comment,
   DecimalInteger,
   Dot,
   DoubleLSquare,
@@ -59,11 +60,6 @@ export class TOMLParser extends CstParser {
 
   constructor() {
     super(TOKENS, {
-      ignoredIssues: {
-        key: {
-          OR: true,
-        },
-      },
       nodeLocationTracking: "full",
     });
 
@@ -92,6 +88,7 @@ export class TOMLParser extends CstParser {
               $.CONSUME1(Comment);
             });
           },
+          IGNORE_AMBIGUITIES: true,
         },
         {
           ALT: () => {
@@ -100,6 +97,7 @@ export class TOMLParser extends CstParser {
               $.CONSUME2(Comment);
             });
           },
+          IGNORE_AMBIGUITIES: true,
         },
       ]);
     });
@@ -360,11 +358,13 @@ export class TOMLParser extends CstParser {
           ALT: () => {
             $.SUBRULE1($.simpleKey);
           },
+          IGNORE_AMBIGUITIES: true,
         },
         {
           ALT: () => {
             $.SUBRULE1($.dottedKey);
           },
+          IGNORE_AMBIGUITIES: true,
         },
       ]);
     });
