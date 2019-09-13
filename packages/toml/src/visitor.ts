@@ -8,7 +8,7 @@ const BaseCstVisitor = parser.getBaseCstVisitorConstructor();
 export class TOMLVisitor extends BaseCstVisitor {
   public result: any;
   private stack: IToken[];
-  private arrayLevel: number = 0;
+  private arrayLevel = 0;
 
   constructor() {
     super();
