@@ -1,18 +1,18 @@
-import { Lexer, ILexerConfig } from "chevrotain";
+import { ILexerConfig, Lexer } from "chevrotain";
 import {
-  True,
-  False,
-  Null,
-  LCurly,
-  RCurly,
-  LSquare,
-  RSquare,
-  Comma,
   Colon,
-  StringLiteral,
-  NumberLiteral,
-  WhiteSpace,
+  Comma,
+  False,
   JSONLexer,
+  LCurly,
+  LSquare,
+  Null,
+  NumberLiteral,
+  RCurly,
+  RSquare,
+  StringLiteral,
+  True,
+  WhiteSpace,
 } from "../lexer";
 
 const lexerOption: ILexerConfig = { positionTracking: "onlyOffset" };
