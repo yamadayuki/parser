@@ -83,7 +83,7 @@ Object {
                     "startOffset": 2,
                     "tokenType": Object {
                       "CATEGORIES": Array [],
-                      "PATTERN": /"\\(\\?:\\[\\^\\\\\\\\"\\]\\|\\\\\\\\\\(\\?:\\[bfnrtv"\\\\\\\\\\\\/\\]\\|u\\[0-9a-fA-F\\]\\{4\\}\\)\\)\\*"/,
+                      "PATTERN": /"\\(\\?:\\[\\^\\\\\\\\"\\]\\|\\\\\\\\\\(\\?:\\[bfnrtv"\\\\\\\\/\\]\\|u\\[0-9a-fA-F\\]\\{4\\}\\)\\)\\*"/,
                       "categoryMatches": Array [],
                       "categoryMatchesMap": Object {},
                       "isParent": false,
