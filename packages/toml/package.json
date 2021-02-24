@@ -21,7 +21,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "chevrotain": "^6.3.1",
+    "chevrotain": "^7.1.2",
     "xregexp": "^4.2.4"
   },
   "devDependencies": {
