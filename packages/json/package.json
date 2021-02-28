@@ -21,6 +21,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "chevrotain": "^6.3.1"
+    "chevrotain": "^8.0.1"
   }
 }
